@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    // TS 会警告你不要使用隔离（isolated）转译的功能。
+    // 指定是否将每个文件作为单独的模块，默认为true，他不可以和declaration同时设定
+    "isolatedModules": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*":["./src/*"]
+    }
+    // 设置路径
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+}

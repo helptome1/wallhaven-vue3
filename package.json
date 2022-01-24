@@ -1,0 +1,63 @@
+{
+  "name": "new-wallhaven",
+  "version": "0.0.0",
+  "description": "这是一个wallhaven网站的桌面应用版本",
+  "author": "hezg",
+  "scripts": {
+    "build": "vue-tsc --noEmit && vite build",
+    "dev": "vite",
+    "make": "electron-forge make",
+    "package": "electron-forge package",
+    "preview": "vite preview",
+    "start": "electron-forge start"
+  },
+  "main": "./src/main/main.ts",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
+    "vue": "^3.2.25",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "electron": "^16.0.7",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "style-resources-loader": "^1.4.1",
+    "typescript": "^4.4.4",
+    "vite": "^2.7.2",
+    "vue-cli-plugin-style-resources-loader": "~0.1.5",
+    "vue-tsc": "^0.29.8"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "new_wallhaven"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}
