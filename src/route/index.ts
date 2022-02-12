@@ -4,7 +4,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
  * 导入布局组件
  */
 const Layout = () => import('@/views/Layout.vue')
-const DashBoard = () => import('@/views/dashboard/Dashboard.vue')
+// const DashBoard = () => import('@/views/dashboard/Dashboard.vue')
 
 const routes = [
   // 一级路由容器
@@ -12,7 +12,7 @@ const routes = [
     path: "/",
     component: Layout,
     children:[
-        {path:'/', component: DashBoard}
+        // {path:'/', component: DashBoard}
     ]
   },
 ];
