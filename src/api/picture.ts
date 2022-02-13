@@ -1,5 +1,5 @@
-import request from '@/utils/request'
+import {ajax} from '@/utils/ajax'
 
 export const getHotPicture = () => {
-    return request('/api/v1', 'get')
+    return ajax('search?&categories=111&purity=100&sorting=hot&page=1')
 }

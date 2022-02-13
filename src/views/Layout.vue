@@ -8,7 +8,7 @@
       <div class="main-body">
         <transition name="slide-fade" mode="out-in">
           <keep-alive exclude="AboutPage">
-            <component class="component" :is="tabs.component"></component>
+            <component class="component" :path="tabs.id" :is="tabs.component"></component>
           </keep-alive>
         </transition>
       </div>
@@ -35,7 +35,7 @@ let tabs = reactive({
 })
 const changeTab = (menu: Tabs) => {
   tabs.component = menu.component
-  console.log(tabs.component);
+  tabs.id = menu.id
   tabs.label = menu.label
 }
 </script>

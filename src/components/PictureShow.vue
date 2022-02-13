@@ -30,6 +30,12 @@
 </template>
 
 <script setup lang="ts">
+import { getHotPicture } from '@/api/picture'
+const pictures = getHotPicture().then(res=>{
+  console.log("res",res);
+})
+
+
 </script>
 
 <style lang="less" scoped>
