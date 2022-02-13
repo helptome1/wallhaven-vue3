@@ -15,8 +15,6 @@ export default {
     },
     methods: {
         demo () {
-            console.log(this.hhh)
-
         },
     }
 }

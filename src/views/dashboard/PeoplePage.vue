@@ -1,15 +1,14 @@
 <template>
   <div>
-      people
+    people
+    <!-- 图片展示区域 -->
+    <PictureShow />
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts" setup>
 
-}
 </script>
 
 <style>
-
 </style>

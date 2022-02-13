@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import PictureShow from '@/components/PictureShow.vue'
 
 </script>
  

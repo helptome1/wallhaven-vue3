@@ -1,21 +1,12 @@
 <template>
   <div>
-      dongman
+    dongman
+    <!-- 图片展示区域 -->
+    <PictureShow />
   </div>
 </template>
 
-<script>
-import mixins from '@/utils/mixin.js'
-export default {
-  data() {
-    hhh: {
-      name:'hzg'
-    }
-  },
-  mixins:[mixins]
-}
-</script>
+<script></script>
 
 <style>
-
 </style>
