@@ -33,7 +33,16 @@ export default defineConfig({
                   这种格式
                    */
         additionalData: `@import "./src/assets/styles/global.less";`,
-      },
+      }
     },
   },
+  server: {
+    port: 3000,
+    proxy: {
+      '/api/v1': {
+        target: 'https://wallhaven.cc',
+        changeOrigin: true,
+      },
+    },
+  }
 });
