@@ -4,8 +4,10 @@
   "description": "这是一个wallhaven网站的桌面应用版本",
   "author": "hezg",
   "scripts": {
-    "build": "vue-tsc --noEmit && vite build",
     "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "build:env": "vite build --mode development",
+    "build:prod": "vite build --mode production",
     "make": "electron-forge make",
     "package": "electron-forge package",
     "preview": "vite preview",
