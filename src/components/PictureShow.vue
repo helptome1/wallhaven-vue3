@@ -2,7 +2,9 @@
   <div class="image-list">
     <ul>
       <template v-if="!skeleton">
-        <li v-for="(itme, index) in list" :key="index">1</li>
+        <li v-for="(item) in list" :key="item.id">
+          <img :src="item.thumbs.small" alt="">
+        </li>
       </template>
       <template v-else>
         <li v-for="item in 12" :key="item" class="skeleton">
@@ -29,9 +31,12 @@ let imgList = reactive({
   list: [] as Data[],
 });
 let meta = reactive(<Meta>{});
-
+/**
+ * 获取图片信息
+ */
 getHotPicture().then(({ data }) => {
   imgList.list = data.data;
+  console.log(imgList.list[0].thumbs.small);
   meta = data.meta;
 });
 // 结构出数组才能在模板中使用。
@@ -65,6 +70,7 @@ const { list } = toRefs(imgList);
       }
     }
   }
+  // 骨架屏
   .skeleton {
     .desc {
       align-items: center;
