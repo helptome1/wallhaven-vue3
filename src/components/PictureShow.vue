@@ -1,7 +1,10 @@
 <template>
   <div class="image-list">
     <ul>
-      <template v-if="skeleton">
+      <template v-if="!skeleton">
+        <li v-for="(itme, index) in list" :key="index">1</li>
+      </template>
+      <template v-else>
         <li v-for="item in 12" :key="item" class="skeleton">
           <div class="img"></div>
           <div class="desc">
@@ -11,65 +14,28 @@
           </div>
         </li>
       </template>
-      <template v-else>
-        <li>1</li>
-      </template>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import { getHotPicture } from '@/api/picture'
-import { reactive, ref } from 'vue';
+import { getHotPicture } from "@/api/picture";
+import { reactive, ref, toRefs } from "vue";
+import { Meta, Data } from "./type";
 
-let skeleton = ref(true)
-/**
- * 定义meta声明
- */
-interface Meta {
-  current_page: number;
-  last_page: number;
-  per_page: number;
-  total: number;
-  query?: any;
-  seed?: any;
-}
+let skeleton = ref(false);
 
-interface Thumbs {
-  large: string;
-  original: string;
-  small: string;
-}
+let imgList = reactive({
+  list: [] as Data[],
+});
+let meta = reactive(<Meta>{});
 
-interface Data {
-  id: string;
-  url: string;
-  short_url: string;
-  views: number;
-  favorites: number;
-  source: string;
-  purity: string;
-  category: string;
-  dimension_x: number;
-  dimension_y: number;
-  resolution: string;
-  ratio: string;
-  file_size: number;
-  file_type: string;
-  created_at: string;
-  colors: string[];
-  path: string;
-  thumbs: Thumbs;
-}
-
-let imgList: Array<Data> = reactive([])
-let meta = reactive(<Meta>{})
-
-getHotPicture().then(res => {
-  imgList = res.data.data
-  meta = res.data.meta
-})
-
+getHotPicture().then(({ data }) => {
+  imgList.list = data.data;
+  meta = data.meta;
+});
+// 结构出数组才能在模板中使用。
+const { list } = toRefs(imgList);
 
 </script>
 
