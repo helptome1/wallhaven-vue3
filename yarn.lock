@@ -627,6 +627,21 @@
   resolved "https://registry.npmmirror.com/@vue/shared/download/@vue/shared-3.2.28.tgz#5b0b1840432031d0ea1adff633b356a503e87048"
   integrity sha512-eMQ8s9j8FpbGHlgUAaj/coaG3Q8YtMsoWL/RIHTsE3Ex7PUTyr7V91vB5HqWB5Sn8m4RXTHGO22/skoTUYvp0A==
 
+"@vueuse/core@^7.6.2":
+  version "7.6.2"
+  resolved "https://registry.npmjs.org/@vueuse/core/-/core-7.6.2.tgz#1b9aa92048991189fac31577ff439296efa5fb4a"
+  integrity sha512-bjAbXJVJO6aElMaZtDz2B70C0L6jFk/jGVqJxWZS5huffxA6dW5DN6tQQJwzOnx9B9rDhePHJIFKsix0qZIH2Q==
+  dependencies:
+    "@vueuse/shared" "7.6.2"
+    vue-demi "*"
+
+"@vueuse/shared@7.6.2":
+  version "7.6.2"
+  resolved "https://registry.npmjs.org/@vueuse/shared/-/shared-7.6.2.tgz#6d83bdb003cd8a56dc779fe501e73a4cb755b802"
+  integrity sha512-ThDld4Mx501tahRuHV6qJGkwCr17GknZrOzlD02Na9qJcH7Pq0quNTLx5cNDou7b1CKNvE3BXi2w/hz9KuPNTQ==
+  dependencies:
+    vue-demi "*"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.nlark.com/abbrev/download/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -4606,6 +4621,11 @@ vue-cli-plugin-style-resources-loader@~0.1.5:
   version "0.1.5"
   resolved "https://registry.nlark.com/vue-cli-plugin-style-resources-loader/download/vue-cli-plugin-style-resources-loader-0.1.5.tgz#3e95f4df41f5408e1255664690698c0533648109"
   integrity sha1-PpX030H1QI4SVWZGkGmMBTNkgQk=
+
+vue-demi@*:
+  version "0.12.1"
+  resolved "https://registry.npmjs.org/vue-demi/-/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
+  integrity sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==
 
 vue-router@4:
   version "4.0.12"

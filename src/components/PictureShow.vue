@@ -1,9 +1,9 @@
 <template>
   <div class="image-list">
     <ul>
-      <template v-if="!skeleton">
-        <li v-for="(item) in list" :key="item.id">
-          <img :src="item.thumbs.small" alt="">
+      <template v-if="!skeleton && list.length > 0">
+        <li v-for="item in list" :key="item.id">
+          <img :src="item.thumbs.small" alt="" />
         </li>
       </template>
       <template v-else>
@@ -16,6 +16,7 @@
           </div>
         </li>
       </template>
+      <li ref="target"></li>
     </ul>
   </div>
 </template>
@@ -24,21 +25,54 @@
 import { getHotPicture } from "@/api/picture";
 import { reactive, ref, toRefs } from "vue";
 import { Meta, Data } from "./type";
+import { useIntersectionObserver } from "@vueuse/core";
 
+/**
+ * 骨架屏的结构
+ */
 let skeleton = ref(false);
+/**
+ * 接收props传参
+ */
+const props = defineProps({
+  picParams: {
+    type: Object,
+    default: { categories: 111, purity: 100, sorting: "hot", page: 1 },
+  },
+});
 
+const getPictures = props.picParams;
+
+/**
+ * 获取图片信息
+ */
 let imgList = reactive({
   list: [] as Data[],
 });
 let meta = reactive(<Meta>{});
+
+const getPicture = () => {
+  getHotPicture(getPictures).then(({ data }) => {
+    imgList.list.push(...data.data);
+    console.log(imgList.list);
+    meta = data.meta;
+  });
+};
+
 /**
- * 获取图片信息
+ * 监听懒加载dom
  */
-getHotPicture().then(({ data }) => {
-  imgList.list = data.data;
-  console.log(imgList.list[0].thumbs.small);
-  meta = data.meta;
-});
+const target = ref(null);
+
+const { stop } = useIntersectionObserver(
+  target,
+  ([{ isIntersecting }], observerElement) => {
+    console.log("isIntersecting", isIntersecting);
+    getPictures.page++;
+    getPicture();
+  }
+);
+
 // 结构出数组才能在模板中使用。
 const { list } = toRefs(imgList);
 

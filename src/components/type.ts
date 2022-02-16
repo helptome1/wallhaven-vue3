@@ -17,7 +17,9 @@ interface Thumbs {
     original: string;
     small: string;
 }
-
+/**
+ * Data 获取图片的数据格式
+ */
 export interface Data {
     id: string;
     url: string;
@@ -37,4 +39,11 @@ export interface Data {
     colors: string[];
     path: string;
     thumbs: Thumbs;
+}
+type sorting = "hot" | 'random' | 'toplist' | 'favorites' | 'views' | "date_added"
+export interface SearchParams {
+    categories?: number | string,
+    purity?: string,
+    sorting?: sorting,
+    page?: number,
 }
