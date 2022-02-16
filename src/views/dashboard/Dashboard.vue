@@ -1,14 +1,14 @@
 <template>
   <div class="main-panel">
     <!-- 图片展示区域 -->
-    <PictureShow :picParams="search"/>
+    <PictureShow :picParams="search" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { SearchParams } from "@/components/type";
+import { SearchParams } from "./modules/interface";
 const search: SearchParams = {
-  categories: 111,
+  categories: "111",
   purity: "SFW",
   sorting: "hot",
   page: 1,

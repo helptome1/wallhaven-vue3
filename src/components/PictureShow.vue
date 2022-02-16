@@ -37,7 +37,7 @@ let skeleton = ref(false);
 const props = defineProps({
   picParams: {
     type: Object,
-    default: { categories: 111, purity: 100, sorting: "hot", page: 1 },
+    default: { categories: "111", purity: 100, sorting: "hot", page: 1 },
   },
 });
 

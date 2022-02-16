@@ -40,10 +40,3 @@ export interface Data {
     path: string;
     thumbs: Thumbs;
 }
-type sorting = "hot" | 'random' | 'toplist' | 'favorites' | 'views' | "date_added"
-export interface SearchParams {
-    categories?: number | string,
-    purity?: string,
-    sorting?: sorting,
-    page?: number,
-}
