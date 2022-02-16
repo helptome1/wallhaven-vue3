@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import SliderBar from './silderBar/SliderBar.vue'
+// import SliderBar from './silderBar/SliderBar.vue'
 // 定义menu的接口
 interface Tabs {
   component: string
