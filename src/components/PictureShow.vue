@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { getHotPicture } from "@/api/picture";
 import { reactive, ref, toRefs } from "vue";
-import { Meta, Data } from "./type";
+import { Meta, Data } from "./interface/type";
 import { useIntersectionObserver } from "@vueuse/core";
 
 /**

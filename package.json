@@ -16,6 +16,7 @@
   "main": "./src/main/main.ts",
   "dependencies": {
     "@vueuse/core": "^7.6.2",
+    "ant-design-vue": "^2.2.8",
     "axios": "^0.25.0",
     "electron-squirrel-startup": "^1.0.0",
     "vue": "^3.2.25",
