@@ -28,7 +28,7 @@ export interface Data {
     favorites: number;
     source: string;
     purity: string;
-    category: string;
+    categories: string;
     dimension_x: number;
     dimension_y: number;
     resolution: string;

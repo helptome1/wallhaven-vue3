@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { SearchParams } from "./modules/interface";
+import { SearchParams } from "../../types/interface";
 const search: SearchParams = {
   list: {
     categories: "010",

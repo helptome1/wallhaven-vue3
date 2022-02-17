@@ -31,7 +31,7 @@
 import { reactive, ref, watch, defineEmits } from "vue";
 // 引入element-plus图标库
 import { Search, Refresh } from "@element-plus/icons-vue";
-import { SearchParams } from "@/views/dashboard/modules/interface";
+import { SearchParams } from "@/types/interface";
 /**
  * searchParams 搜索参数
  */
@@ -67,9 +67,11 @@ const serachHandle = () => {
 <style lang="less" scoped>
 .search {
   height: 60px;
+  width: 50%;
   padding: 0 20px;
   display: flex;
   align-items: center;
+  margin: 0 auto;
   .input {
     margin-right: 8px;
     width: 25%;

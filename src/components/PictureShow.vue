@@ -3,7 +3,7 @@
     <ul>
       <template v-if="!skeleton && list.length > 0">
         <li v-for="item in list" :key="item.id">
-          <img :src="item.thumbs.small" alt="" />
+          <img :src="item.thumbs.small" alt/>
         </li>
       </template>
       <template v-else>
@@ -22,10 +22,11 @@
 </template>
 
 <script setup lang="ts">
-import { getHotPicture } from "@/api/picture";
-import { reactive, ref, toRefs, watch } from "vue";
-import { Meta, Data } from "./interface/type";
-import { useIntersectionObserver } from "@vueuse/core";
+import {getHotPicture} from "@/api/picture";
+import {reactive, ref, toRefs, watch} from "vue";
+import {Meta, Data} from "./interface/type";
+import {SearchParams} from "@/types/interface"
+import {useIntersectionObserver} from "@vueuse/core";
 
 /**
  * 骨架屏的结构
@@ -38,26 +39,26 @@ const props = defineProps({
   picParams: {
     type: Object,
     default: {
-      list: { categories: "111", purity: 100, sorting: "hot", page: 1 },
+      list: {categories: "111", purity: 100, sorting: "hot", page: 1},
     },
   },
 });
-let getPictures = props.picParams.list;
+let getPictures = {
+  list: {categories: "111", purity: 100, sorting: "hot", page: 1}
+}
 
 /**
  * 监听props变化
  */
 watch(
-  () => props.picParams,
-  (newVal) => {
-    console.log("watch");
-    
-    imgList.list = []
-    getPictures = newVal;
-    // console.log("newVal", newVal);
-    getPicture(getPictures);
-  },
-  { deep: true }
+    () => props.picParams,
+    (newVal) => {
+      console.log("newVal", newVal)
+      imgList.list = []
+      // getPictures.list = newVal;
+      // getPicture(getPictures);
+    },
+    {deep: true}
 );
 
 /**
@@ -69,38 +70,44 @@ let imgList = reactive({
 let meta = reactive(<Meta>{});
 
 const getPicture = (params: any) => {
-  getHotPicture(params).then(({ data }) => {
+  getHotPicture(params.list).then(({data}) => {
     imgList.list.push(...data.data);
+    // console.log(imgList.list)
     meta = data.meta;
   });
 };
-
+// getPicture(getPictures)
 /**
  * 监听懒加载dom
  */
 const target = ref(null);
-
-const { stop } = useIntersectionObserver(
-  target,
-  ([{ isIntersecting }], observerElement) => {
-    getPictures.page++;
-    console.log("page++")
-    getPicture(getPictures);
-  }
+const {stop} = useIntersectionObserver(
+    target,
+    ([{isIntersecting}], observerElement) => {
+      console.log("page++")
+      if (isIntersecting) {
+        getPicture(getPictures);
+        getPictures.list.page++;
+      }
+    }
 );
 
 // 结构出reactive声明的数组才能在模板中使用。
-const { list } = toRefs(imgList);
+const {list} = toRefs(imgList);
 </script>
 
 <style lang="less" scoped>
 .image-list {
   width: 100%;
   height: 100%;
+
   ul {
     height: 100%;
+    max-width: 1300px;
     overflow-y: auto;
     text-align: center;
+    margin: 0 auto;
+
     li {
       display: inline-block;
       margin: 10px;
@@ -113,26 +120,27 @@ const { list } = toRefs(imgList);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 4px 8px #00000042;
       position: relative;
       z-index: 1;
+
       &:hover {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 16px 32px -4px #000000a3;
         transform: scale(1.1, 1.1);
       }
     }
   }
+
   // 骨架屏
   .skeleton {
     .desc {
       align-items: center;
+
       span {
         display: inline-block;
         width: 30%;
         height: 20px;
-        background: linear-gradient(
-          60deg,
-          #ffffff17 25%,
-          #e2e2e217 37%,
-          #e4e4e41f 63%
-        );
+        background: linear-gradient(60deg,
+        #ffffff17 25%,
+        #e2e2e217 37%,
+        #e4e4e41f 63%);
         background-size: 400% 100%;
         animation: skeleton-loading 1.4s ease infinite;
       }

@@ -2,13 +2,7 @@
  * sorting
  * 排序结果的分类
  */
-type sorting =
-  | "hot"
-  | "random"
-  | "toplist"
-  | "favorites"
-  | "views"
-  | "toplist";
+type sorting = "hot" | "random" | "toplist" | "favorites" | "views" | "toplist";
 /**
  * order
  * desc按倒序排序(即：从大到小排序) ---降序排列
@@ -24,14 +18,14 @@ type ratios = "16x9" | "16x10";
  * categories(general, anime, people)
  * 111即为全选，010为动漫，001为people
  */
-type categories = '111' | '010' | "001";
+type categories = "111" | "010" | "001";
 export interface SearchParams {
   list: {
-    categories?: number | string,
-    purity?: string[] | string,
-    sorting?: sorting,
-    page?: number,
-    order?: order,
-    ratios?: ratios
-  }
+    categories?: categories;
+    purity?: string[] | string;
+    sorting?: sorting;
+    page?: number;
+    order?: order;
+    ratios?: ratios;
+  };
 }
