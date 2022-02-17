@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { getHotPicture } from "@/api/picture";
-import { reactive, ref, toRefs } from "vue";
+import { reactive, ref, toRefs, watch } from "vue";
 import { Meta, Data } from "./interface/type";
 import { useIntersectionObserver } from "@vueuse/core";
 
@@ -37,11 +37,28 @@ let skeleton = ref(false);
 const props = defineProps({
   picParams: {
     type: Object,
-    default: { categories: "111", purity: 100, sorting: "hot", page: 1 },
+    default: {
+      list: { categories: "111", purity: 100, sorting: "hot", page: 1 },
+    },
   },
 });
+let getPictures = props.picParams.list;
 
-const getPictures = props.picParams;
+/**
+ * 监听props变化
+ */
+watch(
+  () => props.picParams,
+  (newVal) => {
+    console.log("watch");
+    
+    imgList.list = []
+    getPictures = newVal;
+    // console.log("newVal", newVal);
+    getPicture(getPictures);
+  },
+  { deep: true }
+);
 
 /**
  * 获取图片信息
@@ -51,8 +68,8 @@ let imgList = reactive({
 });
 let meta = reactive(<Meta>{});
 
-const getPicture = () => {
-  getHotPicture(getPictures).then(({ data }) => {
+const getPicture = (params: any) => {
+  getHotPicture(params).then(({ data }) => {
     imgList.list.push(...data.data);
     meta = data.meta;
   });
@@ -67,13 +84,13 @@ const { stop } = useIntersectionObserver(
   target,
   ([{ isIntersecting }], observerElement) => {
     getPictures.page++;
-    getPicture();
+    console.log("page++")
+    getPicture(getPictures);
   }
 );
 
 // 结构出reactive声明的数组才能在模板中使用。
 const { list } = toRefs(imgList);
-
 </script>
 
 <style lang="less" scoped>

@@ -9,12 +9,12 @@ type sorting =
   | "favorites"
   | "views"
   | "toplist";
-  /**
-   * order
-   * desc按倒序排序(即：从大到小排序) ---降序排列
-   * asc正序排序(即：从小到大排序)---升序排列
-   */
-type order = "desc" | "asc"; 
+/**
+ * order
+ * desc按倒序排序(即：从大到小排序) ---降序排列
+ * asc正序排序(即：从小到大排序)---升序排列
+ */
+type order = "desc" | "asc";
 /**
  * ratios图片的尺寸
  */
@@ -26,10 +26,12 @@ type ratios = "16x9" | "16x10";
  */
 type categories = '111' | '010' | "001";
 export interface SearchParams {
-  categories?: number | string,
-  purity?: string[] | string,
-  sorting?: sorting,
-  page?: number,
-  order?: order,
-  ratios?: ratios
+  list: {
+    categories?: number | string,
+    purity?: string[] | string,
+    sorting?: sorting,
+    page?: number,
+    order?: order,
+    ratios?: ratios
+  }
 }
