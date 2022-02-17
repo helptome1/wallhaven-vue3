@@ -54,7 +54,6 @@ let meta = reactive(<Meta>{});
 const getPicture = () => {
   getHotPicture(getPictures).then(({ data }) => {
     imgList.list.push(...data.data);
-    console.log(imgList.list);
     meta = data.meta;
   });
 };
@@ -67,13 +66,12 @@ const target = ref(null);
 const { stop } = useIntersectionObserver(
   target,
   ([{ isIntersecting }], observerElement) => {
-    console.log("isIntersecting", isIntersecting);
     getPictures.page++;
     getPicture();
   }
 );
 
-// 结构出数组才能在模板中使用。
+// 结构出reactive声明的数组才能在模板中使用。
 const { list } = toRefs(imgList);
 
 </script>
