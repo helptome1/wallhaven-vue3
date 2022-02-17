@@ -1,11 +1,52 @@
-# Vue 3 + Typescript + Vite
+<p align='center'>
+  <img src='./src/assets/logo800600.png' alt='One-Wallhaven - A desktop application of wallhaven' width='600'/>
+</p>
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Features
 
-## Recommended IDE Setup
+- ⚡️ use [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [TypeScript](https://www.tslang.cn/), [Electron](https://www.electronjs.org/)
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- 😃 Use ui and icons from [Element-Plus](http://element-plus.gitee.io/)
 
-## Type Support For `.vue` Imports in TS
+- 🔥 Use the [new `<script setup>` style](https://github.com/vuejs/rfcs/pull/227)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+- 🦾 TypeScript, of course
+
+### Plugins
+
+- [Vue Router](https://github.com/vuejs/vue-router)
+- [`unplugin-vue-components`](https://github.com/antfu/unplugin-vue-components) - components auto import
+- [VueUse](https://github.com/antfu/vueuse) - collection of useful composition APIs
+
+### Api
+
+Thanks very much for the API provided by [Wallhaven Api](https://wallhaven.cc/help/api#search), so that more developers can realize their ideas.
+
+- [Wallhaven Api](https://wallhaven.cc/help/api#search)
+
+## Install and use
+
+- Get the project code
+
+```bash
+git clone https://github.com/helptome1/wallhaven-vue3.git
+```
+
+- Installation dependencies
+
+```bash
+cd wallhaven-vue3
+yarn
+```
+
+- run
+
+```bash
+yarn dev
+```
+
+- build
+
+```bash
+yarn build
+```
