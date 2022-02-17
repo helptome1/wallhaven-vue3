@@ -1,5 +1,7 @@
 <template>
   <div class="main-panel">
+    <!-- 搜索列表 -->
+    <Search />
     <!-- 图片展示区域 -->
     <PictureShow :picParams="search" />
   </div>

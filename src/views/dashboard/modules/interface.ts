@@ -27,7 +27,7 @@ type ratios = "16x9" | "16x10";
 type categories = '111' | '010' | "001";
 export interface SearchParams {
   categories?: number | string,
-  purity?: string,
+  purity?: string[] | string,
   sorting?: sorting,
   page?: number,
   order?: order,
