@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch, defineEmits } from "vue";
+import { reactive, ref } from "vue";
 // 引入element-plus图标库
 import { Search, Refresh } from "@element-plus/icons-vue";
 import { SearchParams } from "@/types/interface";
