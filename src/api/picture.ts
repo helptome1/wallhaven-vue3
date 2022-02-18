@@ -8,15 +8,10 @@ interface Searchparams {
 }
 const getParams : Searchparams = {};
 
-export const getHotPicture = (getParams:any) => {
+export const getHotPicture = (Params:any) => {
   return request.request({
     url: "/search",
     method: "GET",
-    params: {
-      categories: getParams.categories,
-      purity: getParams.purity,
-      sorting: getParams.sorting,
-      page: getParams.page
-    }
+    params: Params
   });
 };
