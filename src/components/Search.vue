@@ -57,7 +57,6 @@ const emit = defineEmits<{
  */
 const serachHandle = () => {
   // userSearch.purity = '010'
-//   console.log(searchParams);
   emit("search", searchParams as SearchParams);
   // 旋转按钮。
   searchButton.value = !searchButton.value;
@@ -67,7 +66,7 @@ const serachHandle = () => {
 <style lang="less" scoped>
 .search {
   height: 60px;
-  width: 50%;
+  width: 650px;
   padding: 0 20px;
   display: flex;
   align-items: center;
