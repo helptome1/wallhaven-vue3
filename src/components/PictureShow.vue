@@ -55,8 +55,8 @@ watch(
     (newVal) => {
       console.log("newVal", newVal)
       imgList.list = []
-      // getPictures.list = newVal;
-      // getPicture(getPictures);
+      // getPictures.list = newVal.list;
+      getPicture(newVal);
     },
     {deep: true}
 );
@@ -72,24 +72,25 @@ let meta = reactive(<Meta>{});
 const getPicture = (params: any) => {
   getHotPicture(params.list).then(({data}) => {
     imgList.list.push(...data.data);
-    // console.log(imgList.list)
     meta = data.meta;
   });
 };
-// getPicture(getPictures)
 /**
  * 监听懒加载dom
+ * initKey初始化时加载数据
  */
+const initKey = ref(true);
 const target = ref(null);
-const {stop} = useIntersectionObserver(
-    target,
-    ([{isIntersecting}], observerElement) => {
-      console.log("page++")
-      if (isIntersecting) {
-        getPicture(getPictures);
-        getPictures.list.page++;
-      }
+const { stop } = useIntersectionObserver(
+  target,
+  ([{ isIntersecting }], observerElement) => {
+    console.log("isIntersecting", isIntersecting);
+    if (isIntersecting || initKey.value) {
+      getPicture(getPictures);
+      getPictures.list.page++;
+      initKey.value = false;
     }
+  }
 );
 
 // 结构出reactive声明的数组才能在模板中使用。

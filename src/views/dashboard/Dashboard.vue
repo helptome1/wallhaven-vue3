@@ -23,7 +23,6 @@ let userSearch: SearchParams = reactive({
 });
 const searchHandle = (data: SearchParams) => {
   searchList.list = { ...searchList.list, ...data.list };
-  console.log("searchList.list",searchList.list)
   /**
    * 把数组类型的参数转换成字符串。
    */
@@ -36,8 +35,9 @@ const searchHandle = (data: SearchParams) => {
   } else {
     searchList.list.purity = "110";
   }
+  console.log("searchList.list", searchList.list);
+
   // searchList = toRefs(searchList);
-  console.log("search", searchList.list);
 };
 </script>
  
