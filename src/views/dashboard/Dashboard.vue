@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import { reactive, ref, toRefs } from "vue";
 import { SearchParams } from "../../types/interface";
+import { objToParams } from "@/utils/mixins/mixins";
 let searchList: SearchParams = reactive({
   list: {
     categories: "111",
@@ -18,22 +19,11 @@ let searchList: SearchParams = reactive({
     page: 1,
   },
 });
-
+/**
+ * 获取选择的搜索参数
+ */
 const searchHandle = (data: SearchParams) => {
-  searchList.list = { ...searchList.list, ...data.list };
-  /**
-   * 把数组类型的参数转换成字符串。
-   */
-  if ((data.list.purity as string[]).length <= 1) {
-    searchList.list.purity =
-      !(data.list.purity as string[])[0] ||
-      (data.list.purity as string[])[0] === "SFW"
-        ? "SFW"
-        : "Sketchy";
-  } else {
-    searchList.list.purity = "110";
-  }
-  console.log("searchList.list", searchList.list);
+  searchList = objToParams(searchList, data)
 };
 </script>
  
