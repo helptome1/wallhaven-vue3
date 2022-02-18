@@ -18,9 +18,7 @@ let searchList: SearchParams = reactive({
     page: 1,
   },
 });
-let userSearch: SearchParams = reactive({
-  list: {},
-});
+
 const searchHandle = (data: SearchParams) => {
   searchList.list = { ...searchList.list, ...data.list };
   /**
@@ -36,8 +34,6 @@ const searchHandle = (data: SearchParams) => {
     searchList.list.purity = "110";
   }
   console.log("searchList.list", searchList.list);
-
-  // searchList = toRefs(searchList);
 };
 </script>
  

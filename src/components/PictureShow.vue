@@ -3,7 +3,7 @@
     <ul>
       <template v-if="!skeleton && list.length > 0">
         <li v-for="item in list" :key="item.id">
-          <img :src="item.thumbs.small" alt/>
+          <img :src="item.thumbs.small" alt />
         </li>
       </template>
       <template v-else>
@@ -24,8 +24,7 @@
 <script setup lang="ts">
 import {getHotPicture} from "@/api/picture";
 import {reactive, ref, toRefs, watch} from "vue";
-import {Meta, Data} from "./interface/type";
-import {SearchParams} from "@/types/interface"
+import {SearchParams, Meta, Data} from "@/types/interface"
 import {useIntersectionObserver} from "@vueuse/core";
 
 /**
@@ -138,10 +137,12 @@ const {list} = toRefs(imgList);
         display: inline-block;
         width: 30%;
         height: 20px;
-        background: linear-gradient(60deg,
-        #ffffff17 25%,
-        #e2e2e217 37%,
-        #e4e4e41f 63%);
+        background: linear-gradient(
+          60deg,
+          #ffffff17 25%,
+          #e2e2e217 37%,
+          #e4e4e41f 63%
+        );
         background-size: 400% 100%;
         animation: skeleton-loading 1.4s ease infinite;
       }
