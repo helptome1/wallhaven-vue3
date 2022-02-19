@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="tabs.id">
     <!-- 侧边导航栏 -->
     <SliderBar class="sliderBar" @change="changeTab" />
     <!-- 主要内容区域 -->
@@ -8,7 +8,7 @@
       <div class="main-body">
         <transition name="slide-fade" mode="out-in">
           <keep-alive exclude="AboutPage">
-            <component class="component" :path="tabs.id" :is="tabs.component"></component>
+            <component class="component" :is="tabs.component"></component>
           </keep-alive>
         </transition>
       </div>
@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-// import SliderBar from './silderBar/SliderBar.vue'
 // 定义menu的接口
 interface Tabs {
   component: string
@@ -47,7 +46,6 @@ const changeTab = (menu: Tabs) => {
   height: 100vh;
   font-size: 12px;
   box-shadow: 8px 8px 10px grey;
-  background-image: url("../assets/bg.png");
   background-size: cover;
   background-color: #0c0e29;
   overflow: hidden;
@@ -56,7 +54,7 @@ const changeTab = (menu: Tabs) => {
     position: absolute;
     width: 100vw;
     height: 100vh;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
     z-index: 0;
   }
   .sliderBar {
@@ -84,6 +82,16 @@ const changeTab = (menu: Tabs) => {
     }
   }
 }
+.hot {
+  background-image: url('../assets/hot.png');
+}
+.people {
+  background-image: url('../assets/people.jpg');
+}
+.acg {
+  background-image: url('../assets/acg.jpg');
+}
+// 翻页动画
 .slide-fade-leave-active,
 .slide-fade-enter-active {
   transition: all 0.8s ease;
