@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Search />
+    <Search @search="searchHandle"/>
     <!-- 图片展示区域 -->
     <PictureShow :picParams="searchList" />
   </div>
@@ -12,7 +12,7 @@ import { objToParams } from "@/utils/mixins/mixins";
 import { reactive } from "vue";
 let searchList: SearchParams = reactive({
   list: {
-    categories: "010",
+    categories: "001",
     purity: "SFW",
     sorting: "toplist",
     page: 1,

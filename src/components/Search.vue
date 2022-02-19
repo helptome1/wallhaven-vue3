@@ -38,10 +38,12 @@ import { SearchParams } from "@/types/interface";
 const searchParams = reactive({
   list: {
     purity: ["SFW"],
-    sorting: "hot",
+    sorting: "toplist",
     atleast: "",
     q: "",
+    page: 1
   },
+  isSeach: true
 });
 /*
  * 控制刷新按钮旋转

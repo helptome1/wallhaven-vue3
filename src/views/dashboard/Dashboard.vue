@@ -15,9 +15,10 @@ let searchList: SearchParams = reactive({
   list: {
     categories: "111",
     purity: "SFW",
-    sorting: "hot",
+    sorting: "toplist",
     page: 1,
   },
+  isSearch: false
 });
 /**
  * 获取选择的搜索参数

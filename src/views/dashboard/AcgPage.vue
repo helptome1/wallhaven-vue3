@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Search />
+    <Search @search="searchHandle"/>
     <!-- 图片展示区域 -->
     <PictureShow :picParams="searchList" />
   </div>

@@ -1,13 +1,13 @@
 <template>
   <div class="image-list">
     <ul>
-      <template v-if="!skeleton && list.length > 0">
+      <template v-if="!skeleton">
         <li v-for="item in list" :key="item.id">
-          <img :src="item.thumbs.small" alt />
+          <img :src="item.thumbs.small" alt="" />
         </li>
       </template>
       <template v-else>
-        <li v-for="item in 12" :key="item" class="skeleton">
+        <li v-for="(item,index) in 24" :key="index" class="skeleton">
           <div class="img"></div>
           <div class="desc">
             <span></span>
@@ -22,15 +22,16 @@
 </template>
 
 <script setup lang="ts">
-import {getHotPicture} from "@/api/picture";
-import {reactive, ref, toRefs, watch} from "vue";
-import {SearchParams, Meta, Data} from "@/types/interface"
-import {useIntersectionObserver} from "@vueuse/core";
+import { getHotPicture } from "@/api/picture";
+import { reactive, ref, toRefs, watch } from "vue";
+import { SearchParams, Meta, Data } from "@/types/interface"
+import { useIntersectionObserver } from "@vueuse/core";
 
 /**
- * 骨架屏的结构
+ * 骨架屏的结构显示与隐藏
  */
-let skeleton = ref(false);
+let skeleton = ref(true);
+
 /**
  * 接收props传参
  */
@@ -38,27 +39,11 @@ const props = defineProps({
   picParams: {
     type: Object,
     default: {
-      list: {categories: "111", purity: 100, sorting: "hot", page: 1},
+      list: { categories: "111", purity: 100, sorting: "hot", page: 1 },
+      isSearch: false
     },
   },
 });
-let getPictures = {
-  list: {categories: "111", purity: 100, sorting: "hot", page: 1}
-}
-
-/**
- * 监听props变化
- */
-watch(
-    () => props.picParams,
-    (newVal) => {
-      console.log("newVal", newVal)
-      imgList.list = []
-      // getPictures.list = newVal.list;
-      getPicture(newVal);
-    },
-    {deep: true}
-);
 
 /**
  * 获取图片信息
@@ -69,9 +54,10 @@ let imgList = reactive({
 let meta = reactive(<Meta>{});
 
 const getPicture = (params: any) => {
-  getHotPicture(params.list).then(({data}) => {
+  getHotPicture(params.list).then(({ data }) => {
     imgList.list.push(...data.data);
     meta = data.meta;
+    skeleton.value = false
   });
 };
 /**
@@ -84,16 +70,32 @@ const { stop } = useIntersectionObserver(
   target,
   ([{ isIntersecting }], observerElement) => {
     console.log("isIntersecting", isIntersecting);
-    if (isIntersecting || initKey.value) {
-      getPicture(getPictures);
-      getPictures.list.page++;
+    if (isIntersecting) {
+      props.picParams.list.page++;
       initKey.value = false;
     }
   }
 );
+/**
+ * 监听props变化
+ */
+watch(
+  () => props.picParams,
+  (newVal) => {
+    if (newVal.isSearch && newVal.list.page === 1) {
+      // skeleton.value = true
+      imgList.list = []    
+      getPicture(newVal);
+    } else {      
+      getPicture(newVal);
+    }
+  },
+  { deep: true, immediate:true }
+);
+
 
 // 结构出reactive声明的数组才能在模板中使用。
-const {list} = toRefs(imgList);
+const { list } = toRefs(imgList);
 </script>
 
 <style lang="less" scoped>
