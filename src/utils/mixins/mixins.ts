@@ -4,6 +4,7 @@ import { SearchParams } from "../../types/interface";
 
 export const objToParams = ( searchList: SearchParams, data: SearchParams) => {
     searchList.list = { ...searchList.list, ...data.list };
+    searchList.isSearch = true;
     /**
      * 把数组类型的参数转换成字符串。
      */

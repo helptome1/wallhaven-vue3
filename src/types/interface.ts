@@ -48,7 +48,8 @@ export interface SearchParams {
     ratios?: Ratios;
     // 最低图片质量
     atleast?: any
-  };
+  },
+  isSearch?: Boolean
 }
 
 /**
