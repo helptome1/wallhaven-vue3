@@ -1,5 +1,5 @@
 let BASE_URL = "";
-const TIME_OUT = 5000;
+const TIME_OUT = 10000;
 // 导入环境变量
 BASE_URL = import.meta.env.VITE_APP_BASEURL as string;
 
