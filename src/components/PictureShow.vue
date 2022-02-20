@@ -3,11 +3,12 @@
     <ul>
       <template v-if="!skeleton">
         <li v-for="item in list" :key="item.id">
-          <img :src="item.thumbs.small" alt="" />
+          <img :src="item.thumbs.small" loading="lazy" draggable="false" @click="openDeatil(item)" />
+          <span>{{ item.resolution }}</span>
         </li>
       </template>
       <template v-else>
-        <li v-for="(item,index) in 24" :key="index" class="skeleton">
+        <li v-for="(item, index) in 24" :key="index" class="skeleton">
           <div class="img"></div>
           <div class="desc">
             <span></span>
@@ -23,7 +24,7 @@
 
 <script setup lang="ts">
 import { getHotPicture } from "@/api/picture";
-import { reactive, ref, toRefs, watch } from "vue";
+import { reactive, ref, toRefs, watch, inject } from "vue";
 import { SearchParams, Meta, Data } from "@/types/interface"
 import { useIntersectionObserver } from "@vueuse/core";
 
@@ -84,15 +85,26 @@ watch(
   (newVal) => {
     if (newVal.isSearch && newVal.list.page === 1) {
       // skeleton.value = true
-      imgList.list = []    
+      imgList.list = []
       getPicture(newVal);
-    } else {      
+    } else {
       getPicture(newVal);
     }
   },
-  { deep: true, immediate:true }
+  { deep: true, immediate: true }
 );
 
+/**
+ * inject接受provide提供的函数。
+ */
+const imageDetailIsShow = inject('layout')
+
+/**
+ * 展示图片详情页面
+ */
+const openDeatil = (data: Data) => {  
+  (imageDetailIsShow as any)(data)
+}
 
 // 结构出reactive声明的数组才能在模板中使用。
 const { list } = toRefs(imgList);
@@ -122,7 +134,12 @@ const { list } = toRefs(imgList);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 4px 8px #00000042;
       position: relative;
       z-index: 1;
-
+      span {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        color: gray;
+      }
       &:hover {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 16px 32px -4px #000000a3;
         transform: scale(1.1, 1.1);

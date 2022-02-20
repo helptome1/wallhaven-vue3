@@ -13,11 +13,12 @@
         </transition>
       </div>
     </div>
+    <ImageDetail :data="imageDetailData" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, provide } from 'vue'
 // 定义menu的接口
 interface Tabs {
   component: string
@@ -37,6 +38,16 @@ const changeTab = (menu: Tabs) => {
   tabs.id = menu.id
   tabs.label = menu.label
 }
+/**
+ * 使用provide向子代组件传递数据，并接受来自子代组件的传参
+ */
+const imageDetailData = ref(null)
+const imageDetailIsShow = (data: any) => {  
+  imageDetailData.value = data
+}
+provide("layout", imageDetailIsShow)
+
+
 </script>
 
 <style lang="less" scoped>
@@ -83,13 +94,13 @@ const changeTab = (menu: Tabs) => {
   }
 }
 .hot {
-  background-image: url('../assets/hot.png');
+  background-image: url("../assets/hot.png");
 }
 .people {
-  background-image: url('../assets/people.jpg');
+  background-image: url("../assets/people.jpg");
 }
 .acg {
-  background-image: url('../assets/acg.jpg');
+  background-image: url("../assets/acg.jpg");
 }
 // 翻页动画
 .slide-fade-leave-active,
