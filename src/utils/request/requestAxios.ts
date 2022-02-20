@@ -17,6 +17,10 @@ class HYRequest {
       this.interceptors?.requestInterceptor,
       this.interceptors?.requestInterceptorCatch
     );
+    this.instance.interceptors.response.use(
+      this.interceptors?.responseInterceptor,
+      this.interceptors?.responseInterceptorCatch
+    );
   }
 
   //使用request测试是否成功

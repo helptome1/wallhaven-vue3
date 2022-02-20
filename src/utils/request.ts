@@ -1,19 +1,36 @@
-import HYRequest from './request/requestAxios'
+import HYRequest from "./request/requestAxios";
 
-import { BASE_URL, TIME_OUT } from "./request/config";
-const request = new HYRequest({
+import { BASE_URL, TIME_OUT, GetImage_BASE_URL } from "./request/config";
+export const request = new HYRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
-    requestInterceptor: function(config) {
+    requestInterceptor: function (config) {
       return config;
     },
     requestInterceptorCatch: (error) => error,
-  }
+  },
+});
+
+export const imgRequest = new HYRequest({
+  baseURL: GetImage_BASE_URL,
+  timeout: 100000,
+  responseType: "blob",
+  interceptors: {
+    requestInterceptor: function (config) {
+      return config;
+    },
+    requestInterceptorCatch: (error) => error,
+    responseInterceptor: function (config) {
+      config.data = window.URL.createObjectURL(config.data)
+      console.log("config",config);
+      return config;
+    },
+    responseInterceptorCatch: (error) => error,
+  },
 });
 
 export default request;
-
 
 // import axios, { Method } from "axios";
 // import { BASE_URL, TIME_OUT } from "./request/config";

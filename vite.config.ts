@@ -49,6 +49,10 @@ export default defineConfig({
         target: 'https://wallhaven.cc',
         changeOrigin: true,
       },
+      '/full': {
+        target: 'https://w.wallhaven.cc',
+        changeOrigin: true,
+      }
     },
   },
 });
