@@ -1,7 +1,12 @@
 
 import { SearchParams } from "../../types/interface";
 
-
+/**
+ * 转换可用的parmas
+ * @param searchList 当前页面的参数。
+ * @param data 用户选择搜索列表的参数。
+ * @returns 合并之后的参数
+ */
 export const objToParams = ( searchList: SearchParams, data: SearchParams) => {
     searchList.list = { ...searchList.list, ...data.list };
     searchList.isSearch = true;
