@@ -16,7 +16,7 @@ export default defineConfig({
   plugins: [
     vue(),
     // 按需导入element-plus组件
-    Components({resolvers: [ElementPlusResolver()]})
+    Components({ resolvers: [ElementPlusResolver()] }),
   ],
   resolve: {
     alias: [

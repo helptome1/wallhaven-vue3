@@ -23,7 +23,6 @@ export const imgRequest = new HYRequest({
     requestInterceptorCatch: (error) => error,
     responseInterceptor: function (config) {
       config.data = window.URL.createObjectURL(config.data)
-      console.log("config",config);
       return config;
     },
     responseInterceptorCatch: (error) => error,
