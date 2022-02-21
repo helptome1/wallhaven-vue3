@@ -116,7 +116,7 @@ ul li {
   }
 }
 
-
+// loading样式
 .el-loading-mask {
   background-color: rgba(0, 0, 0, 0.1) !important;
   /*  pointer-events  : none; */
@@ -136,4 +136,28 @@ ul li {
 
 .el-progress-bar__inner {
   transition: width .08s ease;
+}
+
+// message
+.el-message {
+  min-width: 0;
+  padding  : 8px 10px;
+  left     : 260px;
+  right    : 0;
+  margin   : 0 auto;
+  width    : fit-content;
+  z-index: 9999;
+}
+
+.el-message--success {
+  background-color: #fff;
+  border-color    : #fff;
+
+  .el-icon-success {
+      color: #38acfa;
+  }
+
+  .el-message__content {
+      color: rgb(41, 41, 41);
+  }
 }

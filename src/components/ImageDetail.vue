@@ -32,7 +32,7 @@
     
 <script setup lang='ts'>
 import { watch, ref, reactive, inject } from "vue";
-import { aspectRatioToWH } from "@/utils/utils";
+import { aspectRatioToWH, getTime } from "@/utils/utils";
 import { Close, Refresh, StarFilled, Download } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 import { getImage } from "@/api/picture";
@@ -46,9 +46,8 @@ const props = defineProps({
   },
 });
 
-// 获取当前显示窗口的大小
-let { height: clientHeight, width: clientWidth } =
-  document.documentElement.getBoundingClientRect();
+// 获取当前显示窗口的大小,不能换行！
+let { height: clientHeight, width: clientWidth } = document.documentElement.getBoundingClientRect();
 // 控制显示组件显示于隐藏
 let isShow = ref(false);
 // 图标loading状态
@@ -65,7 +64,9 @@ let originalW = ref(null);
 let minImg = ref({});
 
 // 接受从App.vue传递的来的方法
-let addDownList = inject("App");
+let addDownList = inject("addDownList");
+let getNewLoaded = inject("getNewLoaded");
+
 
 watch(
   () => props.data,
@@ -75,13 +76,7 @@ watch(
     // 用原图做一个过渡处理。
     imgPath.value = newVal.thumbs.original;
     // 处理图片的比例
-    img.value = aspectRatioToWH(
-      clientWidth - 100,
-      clientHeight - 200,
-      ratio,
-      dimension_x,
-      dimension_y
-    );
+    img.value = aspectRatioToWH(clientWidth - 100, clientHeight - 200, ratio, dimension_x, dimension_y);
     // 记录原始的图片宽度
     originalW.value = dimension_x;
     // 缩放比例
@@ -102,13 +97,8 @@ watch(
      */
     getImage(path.split("full")[1]).then((res) => {
       imgPath.value = res.data;
-      img.value = aspectRatioToWH(
-        clientWidth - 100,
-        clientHeight - 200,
-        ratio,
-        dimension_x,
-        dimension_y
-      );
+      // 就这个格式不要变
+      img.value = aspectRatioToWH(clientWidth - 100, clientHeight - 200, ratio, dimension_x, dimension_y);
       loading.value = false;
     });
   },
@@ -128,10 +118,7 @@ const downloadImg = (item = props.data) => {
   } = item;
   // 这里使用正则表达式判断下载链接是否是blob格式的链接
   if (/^blob:/.test(imgPath.value)) {
-    (addDownList as Function)({ id, url, size, resolution, small, _img: item });
-
-    console.log(imgPath.value);
-
+    // (addDownList as Function)({ id, url, size, resolution, small, _img: item });
     // 这里使用a标签的方式进行图片的下载。
     const a = document.createElement("a");
     a.href = imgPath.value;
@@ -144,16 +131,8 @@ const downloadImg = (item = props.data) => {
       a.remove();
     }, 3000);
     ElMessage({ message: "下载成功", type: "success", duration: 2000 });
-    // console.log(1);
-
-    // this.$root.downDoneFiles.splice(0, 0, {
-    //   id,
-    //   resolution,
-    //   size,
-    //   small,
-    //   url,
-    //   downloadtime: getTime(),
-    // });
+    console.log(1);
+    (getNewLoaded as Function)({ id, resolution, size, small, url, downloadtime: getTime() })    
   } else {
     (addDownList as Function)({ id, url, size, resolution, small, _img: item });
     ElMessage({ message: "已加入下载", type: "success", duration: 2000 });

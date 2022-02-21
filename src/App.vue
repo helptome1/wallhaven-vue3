@@ -2,13 +2,13 @@
   <router-view></router-view>
 </template>
 <script setup lang="ts">
-import { getDownLists, getDownLoaded } from "@/utils/utils";
+import { getDownLists, getDownLoaded, updDownLoaded } from "@/utils/utils";
 import { downFile } from "@/utils/download";
-import { provide } from "vue";
+import { provide, ref, watch } from "vue";
 // 获取下载列表
 let downFiles = getDownLists();
 // 获取下载完成的数据列表
-let downLoadedList = getDownLoaded();
+let downLoadedList = ref(getDownLoaded());
 
 const addDownList = (obj: any) => {
   let index = getDownLists().findIndex((item) => item.id === obj.id);
@@ -21,8 +21,19 @@ const addDownList = (obj: any) => {
     downFile(obj);
   }
 };
+const getNewLoaded = (obj: any) => {
+  console.log("obj", obj);
+  (downLoadedList as any).value.splice(0, 0, obj)
+  updDownLoaded(downLoadedList.value)
+}
+provide('addDownList', addDownList)
+provide('getNewLoaded', getNewLoaded)
 
-provide('App', addDownList)
+// watch(() => downLoadedList.value, (newVal) => {
+//   console.log(newVal);
+// },{deep: true})
+
+
 </script>
 
 <style>

@@ -33,6 +33,13 @@ export const aspectRatioToWH = (
   }
 };
 
+/**
+ * 获取时间 yyyy-MM-dd hh:mm:ss
+ */
+ export const getTime = () => {
+  let date = new Date();
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+}
 
 /**
  * 防抖
@@ -88,7 +95,7 @@ export const getDownLists = () => {
  * 获取下载完成数据
  */
 export const getDownLoaded = () => {
-  getLocalData('DownLoaded');
+  return getLocalData('DownLoaded');
 }
 /**
  * 更新下载完成列表

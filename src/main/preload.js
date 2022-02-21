@@ -13,7 +13,7 @@ contextBridge.exposeInMainWorld('icp', {
       ipcRenderer.send(channel, data);
     }
   },
-  receive: (channel, func) => {
+  on: (channel, func) => {
     // 同上
     let validChannels = ["fromMain"];
     if (validChannels.includes(channel)) {

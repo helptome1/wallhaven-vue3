@@ -103,7 +103,7 @@ const imageDetailIsShow = inject('layout')
  * 展示图片详情页面
  */
 const openDeatil = (data: Data) => {  
-  (imageDetailIsShow as Function)(data)
+  (imageDetailIsShow as any)(data)
 }
 
 // 结构出reactive声明的数组才能在模板中使用。
