@@ -47,7 +47,8 @@ const props = defineProps({
 });
 
 // 获取当前显示窗口的大小,不能换行！
-let { height: clientHeight, width: clientWidth } = document.documentElement.getBoundingClientRect();
+let clientWidth = document.documentElement.clientWidth;
+let clientHeight = document.documentElement.clientHeight
 // 控制显示组件显示于隐藏
 let isShow = ref(false);
 // 图标loading状态
@@ -62,6 +63,7 @@ let img = ref({ width: 0, height: 0 });
 let originalW = ref(null);
 // 图片的最小长宽
 let minImg = ref({});
+
 
 // 接受从App.vue传递的来的方法
 let addDownList = inject("addDownList");
@@ -81,9 +83,6 @@ watch(
     originalW.value = dimension_x;
     // 缩放比例
     // zoom.value = parseInt(img.width / dimension_x * 100)
-    //
-    //
-    //
     minImg.value = { ...img };
     // 加载状态
     loading.value = true;
@@ -109,13 +108,7 @@ watch(
  * 下载图片
  */
 const downloadImg = (item = props.data) => {
-  let {
-    id,
-    path: url,
-    file_size: size,
-    resolution,
-    thumbs: { small },
-  } = item;
+  let { id, path: url, file_size: size, resolution, thumbs: { small }, } = item;
   // 这里使用正则表达式判断下载链接是否是blob格式的链接
   if (/^blob:/.test(imgPath.value)) {
     // (addDownList as Function)({ id, url, size, resolution, small, _img: item });
@@ -131,8 +124,7 @@ const downloadImg = (item = props.data) => {
       a.remove();
     }, 3000);
     ElMessage({ message: "下载成功", type: "success", duration: 2000 });
-    console.log(1);
-    (getNewLoaded as Function)({ id, resolution, size, small, url, downloadtime: getTime() })    
+    (getNewLoaded as Function)({ id, resolution, size, small, url, downloadtime: getTime() })
   } else {
     (addDownList as Function)({ id, url, size, resolution, small, _img: item });
     ElMessage({ message: "已加入下载", type: "success", duration: 2000 });
@@ -163,7 +155,7 @@ const downloadImg = (item = props.data) => {
     top: 50vh;
     transform: translateY(-50%);
     color: ffffff9e;
-    z-index: 9999;
+    z-index: 99;
     div {
       margin: 10px 0;
       padding: 16px;

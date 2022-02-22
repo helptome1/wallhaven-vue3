@@ -11,7 +11,7 @@ let downFiles = getDownLists();
 let downLoadedList = ref(getDownLoaded());
 
 const addDownList = (obj: any) => {
-  let index = getDownLists().findIndex((item) => item.id === obj.id);
+  let index = getDownLists().findIndex((item:any) => item.id === obj.id);
   if (index === -1) {
     obj.progress = 0;
     obj.speedBytes = 0;
@@ -22,17 +22,11 @@ const addDownList = (obj: any) => {
   }
 };
 const getNewLoaded = (obj: any) => {
-  console.log("obj", obj);
   (downLoadedList as any).value.splice(0, 0, obj)
   updDownLoaded(downLoadedList.value)
 }
 provide('addDownList', addDownList)
 provide('getNewLoaded', getNewLoaded)
-
-// watch(() => downLoadedList.value, (newVal) => {
-//   console.log(newVal);
-// },{deep: true})
-
 
 </script>
 
