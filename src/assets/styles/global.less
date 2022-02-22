@@ -70,16 +70,18 @@ ul li {
 .el-select-dropdown,
 .el-input__inner {
   color: #a0a0a0 !important;
-  background: @bgColor !important;
+  background: @bgColor  !important;
   border: none !important;
   user-select: none !important;
   padding: 0 5px !important;
+
   :host {
     user-select: none;
   }
 }
 
 .el-select-dropdown__item {
+
   &.selected,
   &.hover,
   &:hover {
@@ -89,22 +91,25 @@ ul li {
     border: none;
   }
 }
+
 /*
 * el-select下拉框的弹层样式
 */
 .el-select__popper.el-popper[role=tooltip] {
-  background-color: @bgColor !important;
+  background-color: @bgColor  !important;
   border: none !important;
 }
+
 .el-input-group__append {
   background: rgba(0, 0, 0, 0.623) !important;
   border: none !important;
 }
+
 /*
 * 下拉框的三角号
 */
 .el-popper.is-light .el-popper__arrow:before {
-  background-color: @bgColor !important;
+  background-color: @bgColor  !important;
   border: none !important;
 }
 
@@ -140,24 +145,34 @@ ul li {
 
 // message
 .el-message {
-  min-width: 0;
-  padding  : 8px 10px;
-  left     : 260px;
-  right    : 0;
-  margin   : 0 auto;
-  width    : fit-content;
-  z-index: 9999;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+  padding: 8px 10px;
+  left: 50%;
+  width: fit-content;
 }
 
 .el-message--success {
-  background-color: #fff;
-  border-color    : #fff;
+  background-color: #f0f9eb;
+  border-color: #e1f3d8;
+  border-radius: 5px;
+  .el-message-icon--success {
+    color: #67c23a;
 
-  .el-icon-success {
-      color: #38acfa;
   }
-
   .el-message__content {
-      color: rgb(41, 41, 41);
+    color: #67c23a;
+    padding-right: 16px;
   }
+
+  .el-message__closeBtn {
+    color: #c0c4cc;
+    font-weight: bold;
+  }
+}
+.el-message__icon {
+  margin-right: 10px
 }
