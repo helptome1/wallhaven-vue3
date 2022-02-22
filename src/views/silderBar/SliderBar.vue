@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import logo from '@/assets/logo800600(2).png'
+import logo from '@/assets/logo800600.png'
 import {ref} from 'vue'
 let activeCategory = ref('hot');
 const navList = [

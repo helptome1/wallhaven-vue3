@@ -9,8 +9,10 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 600,
-    // frame: false,
-    // show: false,
+    frame: false,
+    show: false,
+    icon:path.resolve(__dirname, './images/logo.png'),
+    backgroundColor:'#2e2c29',
     webPreferences: {
       webSecurity: false,
       nodeIntegration: false,
@@ -20,6 +22,9 @@ function createWindow() {
     },
   })
   win.loadURL("http://localhost:3000/")
+  win.on('ready-to-show', () => { win.show() })
+
+  return win
 }
 
 // 这段程序将会在 Electron 结束初始化

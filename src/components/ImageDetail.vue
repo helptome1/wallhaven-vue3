@@ -155,7 +155,7 @@ const downloadImg = (item = props.data) => {
     top: 50vh;
     transform: translateY(-50%);
     color: ffffff9e;
-    z-index: 99;
+    z-index: 9999;
     div {
       margin: 10px 0;
       padding: 16px;
