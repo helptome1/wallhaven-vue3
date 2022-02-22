@@ -26,7 +26,8 @@ export default defineConfig({
       },
     ],
   },
-  base: "./",
+  // base: './',
+  base: "/one-wallhaven/",
   css: {
     preprocessorOptions: {
       less: {
