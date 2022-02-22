@@ -8,10 +8,7 @@ const {
 contextBridge.exposeInMainWorld('icp', {
   send: (channel, data) => {
     // 事件白名单，懒的话可以不写直接send
-    let validChannels = ["toMain"];
-    if (validChannels.includes(channel)) {
-      ipcRenderer.send(channel, data);
-    }
+    ipcRenderer.send(channel, data);
   },
   on: (channel, func) => {
     // 同上

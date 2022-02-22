@@ -4,7 +4,10 @@
     <SliderBar class="sliderBar" @change="changeTab" />
     <!-- 主要内容区域 -->
     <div class="main">
-      <div class="main-header">{{ tabs.label }}</div>
+      <div class="main-header">
+        {{ tabs.label }}
+        <NavStatus></NavStatus>
+      </div>
       <div class="main-body">
         <transition name="slide-fade" mode="out-in">
           <keep-alive exclude="AboutPage">
@@ -42,7 +45,7 @@ const changeTab = (menu: Tabs) => {
  * 使用provide向子代组件传递数据，并接受来自子代组件的传参
  */
 const imageDetailData = ref(null)
-const imageDetailIsShow = (data: any) => {  
+const imageDetailIsShow = (data: any) => {
   imageDetailData.value = data
 }
 provide("layout", imageDetailIsShow)
@@ -79,6 +82,7 @@ provide("layout", imageDetailIsShow)
     padding: 20px;
     color: #fff;
     .main-header {
+      display: flex;
       height: 40px;
       line-height: 40px;
       font-size: 40px;

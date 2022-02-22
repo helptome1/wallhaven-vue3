@@ -19,5 +19,5 @@
     }
     // 设置路径
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/main/preload.js"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/main/preload.js","src/main/main.ts", "src/main/libs/ipcMain.js"]
 }

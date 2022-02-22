@@ -1,4 +1,4 @@
-const { app, ipcMain, session, Notification, shell, DownloadItem, dialog } = require('electron');
+const { app, ipcMain, session, shell, DownloadItem, dialog } = require('electron');
 // const path = require("path")
 const fs = require('fs');
 
@@ -35,7 +35,9 @@ const mainWindowIpcStart = function (win) {
 
     // 关闭程序
     ipcMain.on("close", function () {
-        cacheDownItemClose()
+        console.log("close");
+        
+        // cacheDownItemClose()
         win.close();
     })
 
