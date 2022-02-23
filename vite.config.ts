@@ -17,15 +17,16 @@ export default ({ mode }) => {
   console.log("envConfig", envConfig);
 
   return defineConfig({
+    base: './',
     build: {
-      assetsDir: 'static/img/',
-      rollupOptions: {
-        output: {
-          chunkFileNames: 'static/js/[name]-[hash].js',
-          entryFileNames: 'static/js/[name]-[hash].js',
-          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
-        },
-      },
+      // assetsDir: 'static/img/',
+      // rollupOptions: {
+      //   output: {
+      //     chunkFileNames: 'static/js/[name]-[hash].js',
+      //     entryFileNames: 'static/js/[name]-[hash].js',
+      //     assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+      //   },
+      // },
     },
     plugins: [
       vue(),
@@ -40,7 +41,6 @@ export default ({ mode }) => {
         },
       ],
     },
-    base: envConfig.VITE_BASEURL,
     css: {
       preprocessorOptions: {
         less: {

@@ -13,7 +13,7 @@
     "package": "electron-forge package",
     "preview": "vite preview --port 8080",
     "start": "electron-forge start",
-    "deploy": "bash deploy.sh"
+    "electron:start": "vite build --mode production & electron ."
   },
   "main": "./src/main/main.ts",
   "dependencies": {
