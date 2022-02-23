@@ -15,7 +15,7 @@
     "start": "electron-forge start",
     "deploy": "bash deploy.sh"
   },
-  "main": "./src/main.ts",
+  "main": "./src/main/main.ts",
   "dependencies": {
     "@vueuse/core": "^7.6.2",
     "axios": "^0.25.0",

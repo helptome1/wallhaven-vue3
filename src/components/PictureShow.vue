@@ -70,7 +70,6 @@ const target = ref(null);
 const { stop } = useIntersectionObserver(
   target,
   ([{ isIntersecting }], observerElement) => {
-    console.log("isIntersecting", isIntersecting);
     if (isIntersecting) {
       props.picParams.list.page++;
       initKey.value = false;

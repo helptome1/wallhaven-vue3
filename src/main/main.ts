@@ -16,7 +16,7 @@ function createWindow() {
     icon:path.resolve(__dirname, './images/logo.png'),
     backgroundColor:'#2e2c29',
     webPreferences: {
-      webSecurity: false,
+      // webSecurity: false,
       nodeIntegration: false,
       contextIsolation: true,
       // webviewTag: true
@@ -54,7 +54,6 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
-
 
 // 除了 macOS 外，当所有窗口都被关闭的时候退出程序。 因此，通常对程序和它们在
 // 任务栏上的图标来说，应当保持活跃状态，直到用户使用 Cmd + Q 退出。
