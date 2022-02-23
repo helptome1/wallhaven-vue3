@@ -5,13 +5,15 @@
   "author": "hezg",
   "scripts": {
     "dev": "vite",
+    "dev:prod": "vite --mode production",
     "build": "vite build",
     "build:env": "vite build --mode development",
     "build:prod": "vite build --mode production",
     "make": "electron-forge make",
     "package": "electron-forge package",
     "preview": "vite preview --port 8080",
-    "start": "electron-forge start"
+    "start": "electron-forge start",
+    "deploy": "bash deploy.sh"
   },
   "main": "./src/main.ts",
   "dependencies": {
