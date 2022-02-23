@@ -12,6 +12,6 @@ import router from "@/route/index";
 
 
 const app = createApp(App);
-
+app.config.globalProperties.$api = 'https://wallhaven.cc';
 
 app.use(components).use(router).mount("#app");

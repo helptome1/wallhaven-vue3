@@ -16,7 +16,7 @@ function createWindow() {
     icon:path.resolve(__dirname, './images/logo.png'),
     backgroundColor:'#2e2c29',
     webPreferences: {
-      // webSecurity: false,
+      webSecurity: false,
       nodeIntegration: false,
       contextIsolation: true,
       // webviewTag: true
@@ -29,7 +29,8 @@ function createWindow() {
   //   win.loadURL("http://localhost:3000/")
   //   win.webContents.openDevTools()
   // }
-  win.loadURL(`file://${winURL}`)
+  // win.loadURL(`file://${winURL}`)
+  win.loadFile(winURL)
   win.webContents.openDevTools()
   win.on('ready-to-show', () => { win.show() })
   /**

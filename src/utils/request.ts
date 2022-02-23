@@ -1,4 +1,8 @@
 import HYRequest from "./request/requestAxios";
+import { getCurrentInstance } from 'vue'
+let { proxy } = getCurrentInstance();
+
+console.log("api", proxy.$api);
 
 import { BASE_URL, TIME_OUT, GetImage_BASE_URL } from "./request/config";
 export const request = new HYRequest({
