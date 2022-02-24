@@ -4,7 +4,7 @@
   "description": "这是一个wallhaven网站的桌面应用版本",
   "author": "hezg",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
     "dev:prod": "vite --mode production",
     "build": "vite build",
     "build:env": "vite build --mode development",
