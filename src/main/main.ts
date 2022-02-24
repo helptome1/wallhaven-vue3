@@ -23,21 +23,21 @@ function createWindow() {
       preload: path.join(__dirname, '/preload.js')
     },
   })
-  // if(app.isPackaged) {
-  //   win.loadURL(`file://${path.resolve(__dirname, '../../dist/index.html')}`)
-  // } else {
-  //   win.loadURL("http://localhost:3000/")
-  //   win.webContents.openDevTools()
-  // }
-  // win.loadURL(`file://${winURL}`)
-  win.loadFile(winURL)
-  win.webContents.openDevTools()
+
+  if(app.isPackaged) {
+    console.log("文件已经打包了")
+    win.loadFile(winURL)
+
+  } else {
+    win.loadFile(winURL)
+    win.webContents.openDevTools()
+  }
+
   win.on('ready-to-show', () => { win.show() })
   /**
    * 监听关闭事件
    */
   ipcMain.on("close", function () {
-    console.log("close");
     win.close();
   })
   return win
