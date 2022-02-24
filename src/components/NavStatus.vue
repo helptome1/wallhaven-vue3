@@ -15,11 +15,11 @@
     
 <script setup lang='ts'>
 import { CloseBold, SemiSelect } from "@element-plus/icons-vue";
+/**
+ * 关闭应用
+ */
 const closeWindow = () => {
-    /**
-     * 
-     */
-    // window.icp.send("close")
+    window.icp.send("close")
 }
 </script>
 <style lang="less" scoped>
