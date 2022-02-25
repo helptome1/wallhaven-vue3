@@ -63,7 +63,7 @@ const navList = [
     ]
   },
   {
-    label: '更多',
+    label: '其他',
     childen: [
       {
         id: 'about',
