@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "这是一个wallhaven网站的桌面应用版本",
   "author": "hezg",
+  "license": "ISC",
   "scripts": {
     "dev": "vite --mode development",
     "dev:prod": "vite --mode production",
