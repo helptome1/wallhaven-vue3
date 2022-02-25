@@ -106,6 +106,10 @@ provide("layout", imageDetailIsShow)
 .acg {
   background-image: url("../assets/acg.jpg");
 }
+
+.about {
+  background-image: url("");
+}
 // 翻页动画
 .slide-fade-leave-active,
 .slide-fade-enter-active {

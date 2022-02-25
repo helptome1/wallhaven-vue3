@@ -16,6 +16,7 @@ function createWindow() {
     icon:path.resolve(__dirname, './images/logo.png'),
     backgroundColor:'#2e2c29',
     webPreferences: {
+      // 资源跨域解决方法，但是是不安全的方法。
       webSecurity: false,
       nodeIntegration: false,
       contextIsolation: true,
@@ -34,12 +35,6 @@ function createWindow() {
   }
 
   win.on('ready-to-show', () => { win.show() })
-  /**
-   * 监听关闭事件
-   */
-  ipcMain.on("close", function () {
-    win.close();
-  })
   return win
 }
 
@@ -47,9 +42,9 @@ function createWindow() {
 // 和创建浏览器窗口的时候调用
 // 部分 API 在 ready 事件触发后才能使用。
 app.whenReady().then(() => {
-  createWindow()
-  // let mainWindow = createWindow()
-  // mainIpcStart(mainWindow)
+  // createWindow()
+  let mainWindow = createWindow()
+  mainIpcStart(mainWindow)
   app.on('activate', function () {
     // 通常在 macOS 上，当点击 dock 中的应用程序图标时，如果没有其他
     // 打开的窗口，那么程序会重新创建一个窗口。

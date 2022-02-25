@@ -36,8 +36,6 @@ const mainWindowIpcStart = function (win) {
     // 关闭程序
     ipcMain.on("close", function () {
         console.log("close");
-        
-        // cacheDownItemClose()
         win.close();
     })
 

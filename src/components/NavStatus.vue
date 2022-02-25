@@ -2,10 +2,13 @@
     <div>
         <div class="title-opt">
             <div>
-                <el-icon class="min">
+                <el-icon class="min" :size="20" @click="SystemOpration('min')">
                     <semi-select />
                 </el-icon>
-                <el-icon class="close" @click="closeWindow">
+                <el-icon class="max" :size="20" @click="SystemOpration('max')">
+                    <full-screen />
+                </el-icon>
+                <el-icon class="close" :size="20" @click="SystemOpration('close')">
                     <close-bold />
                 </el-icon>
             </div>
@@ -14,12 +17,13 @@
 </template>
     
 <script setup lang='ts'>
-import { CloseBold, SemiSelect } from "@element-plus/icons-vue";
+import { CloseBold, SemiSelect, FullScreen } from "@element-plus/icons-vue";
 /**
  * 关闭应用
  */
-const closeWindow = () => {
-    window.icp.send("close")
+type Oprate = 'min' | 'close' | 'max'
+const SystemOpration = (type: Oprate) => {
+    window.icp.send(type)
 }
 </script>
 <style lang="less" scoped>
@@ -30,8 +34,9 @@ const closeWindow = () => {
     top: -4px;
     color: gray;
     font-size: 18px;
-    .min {
-        margin-right: 15px;
+    .min,
+    .max {
+        margin-right: 25px;
     }
     .el-icon:hover {
         color: #fff;

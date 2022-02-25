@@ -19,8 +19,11 @@ export default ({ mode }) => {
   return defineConfig({
     base: './',
     build: {
-      // assetsDir: 'static/img/',
+      // assetsDir: 'static',
       // rollupOptions: {
+      //   input: {
+      //     index:resolve(__dirname, 'index.html')
+      //   },
       //   output: {
       //     chunkFileNames: 'static/js/[name]-[hash].js',
       //     entryFileNames: 'static/js/[name]-[hash].js',
