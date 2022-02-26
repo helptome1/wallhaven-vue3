@@ -49,13 +49,13 @@ const navList = [
     label: '我的壁纸',
     childen: [
       {
-        id: 'my',
+        id: 'collection',
         label: '我的收藏',
         icon: 'icon-collection-b',
         component: 'CollectionPage'
       },
       {
-        id: 'down',
+        id: 'download',
         label: '下载中心',
         component: 'DownloadPage',
         icon: 'icon-xiazai'

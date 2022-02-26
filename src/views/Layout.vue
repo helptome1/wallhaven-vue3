@@ -107,8 +107,15 @@ provide("layout", imageDetailIsShow)
   background-image: url("../assets/acg.jpg");
 }
 
+.collection {
+  background-image: url("../assets/collection.jpg");
+}
+
+.download {
+  background-image: url("../assets/download.png");
+}
 .about {
-  background-image: url("");
+  background-image: url("../assets/about.jpg");
 }
 // 翻页动画
 .slide-fade-leave-active,
