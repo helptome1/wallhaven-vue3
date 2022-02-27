@@ -4,7 +4,7 @@
       <template v-if="!skeleton">
         <li v-for="item in list" :key="item.id">
           <img :src="item.thumbs.small" loading="lazy" draggable="false" @click="openDeatil(item)" />
-          <div v-if="item.thumbs.small" class="img-info">
+          <div class="img-info">
             <span>
               <el-icon class="icon-position">
                 <star />
@@ -143,6 +143,10 @@ const { list } = toRefs(imgList)
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 4px 8px #00000042;
       position: relative;
       z-index: 1;
+      img {
+        // 修复图片未加载出来时，图片信息置顶
+        height: 200px;
+      }
       .img-info {
         display: flex;
         justify-content: space-between;
