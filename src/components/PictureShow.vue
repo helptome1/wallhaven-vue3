@@ -2,11 +2,18 @@
   <div class="image-list">
     <ul>
       <template v-if="!skeleton">
-        <li v-for="item in list" :key="item.id">
+        <li v-for="(item, index) in list" :key="item.id + index">
           <img :src="item.thumbs.small" loading="lazy" draggable="false" @click="openDeatil(item)" />
           <div class="img-info">
-            <span>
+            <!-- 没有收藏时显示 -->
+            <span :key="item.id + 'yes'" v-if="isCollected(item.id)" @click="clickRemoveCollect(item)">
               <el-icon class="icon-position">
+                <star-filled />
+              </el-icon>
+            </span>
+            <!-- 加入到收藏时显示 -->
+            <span :key="item.id + 'no'" v-else @click="clickAddCollect(item)">
+              <el-icon>
                 <star />
               </el-icon>
             </span>
@@ -39,7 +46,8 @@ import { getHotPicture } from '@/api/picture'
 import { reactive, ref, toRefs, watch, inject } from 'vue'
 import { Meta, Data } from '@/types/interface'
 import { useIntersectionObserver } from '@vueuse/core'
-import { Star, Download } from '@element-plus/icons-vue'
+import { Star, StarFilled, Download } from '@element-plus/icons-vue'
+import { setLocalData, getCollectData, setCollectData } from '@/utils/utils'
 
 /**
  * 骨架屏的结构显示与隐藏
@@ -70,6 +78,7 @@ let meta = reactive(<Meta>{})
 const getPicture = (params: any) => {
   getHotPicture(params.list).then(({ data }) => {
     imgList.list.push(...data.data)
+    console.log(imgList.list)
     meta = data.meta
     skeleton.value = false
   })
@@ -115,6 +124,29 @@ const openDeatil = (data: Data) => {
   ;(imageDetailIsShow as any)(data)
 }
 
+/**
+ * 收藏功能
+ */
+
+// 获取收藏列表
+let collectArr = ref(getCollectData())
+// 点击收藏，保存到localstorage中
+const clickAddCollect = (item: Data) => {
+  collectArr.value.splice(0, 0, item)
+  setLocalData('collection', collectArr.value)
+}
+
+// 渲染是否点击了收藏
+const clickRemoveCollect = (item: Data) => {
+  let index = collectArr.value.findIndex()
+}
+
+let isCollected = (id: any) => {
+  return (
+    collectArr.value.length > 0 &&
+    collectArr.value.findIndex((item) => id === item.id) !== -1
+  )
+}
 // 结构出reactive声明的数组才能在模板中使用。
 const { list } = toRefs(imgList)
 </script>

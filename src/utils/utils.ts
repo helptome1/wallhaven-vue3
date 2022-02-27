@@ -36,14 +36,16 @@ export const aspectRatioToWH = (
 /**
  * 获取时间 yyyy-MM-dd hh:mm:ss
  */
- export const getTime = () => {
+export const getTime = () => {
   let date = new Date();
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-}
+  return `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+};
 
 /**
  * 防抖
- * @param {*} fn 
+ * @param {*} fn
  * @param {*} wait 延迟时间 默认1秒
  */
 export const debounce = (fn: Function, wait = 1000) => {
@@ -53,8 +55,8 @@ export const debounce = (fn: Function, wait = 1000) => {
     timeout = setTimeout(() => {
       fn(key, val);
     }, wait);
-  }
-}
+  };
+};
 
 /**
  * 设置 localStorage中的图片数据
@@ -62,46 +64,59 @@ export const debounce = (fn: Function, wait = 1000) => {
  * @param {*} val value
  */
 export const setLocalData = (key: string, val: any) => {
-  localStorage.setItem(key, JSON.stringify(val))
-}
+  localStorage.setItem(key, JSON.stringify(val));
+};
 
 /**
  * 获取localStorage中的图片数据
  */
 export const getLocalData = (key: string, val = []) => {
-  let data = localStorage.getItem(key)
+  let data = localStorage.getItem(key);
   if (data) {
-    return JSON.parse(data)
+    return JSON.parse(data);
   }
-  return val
-}
+  return val;
+};
 
 /**
  * 更新下载列表
- * @param {*} arr 
+ * @param {*} arr
  */
-const _updDownFiles = debounce(setLocalData, 1000)
+const _updDownFiles = debounce(setLocalData, 1000);
 export const updDownFiles = (arr: any) => {
-  _updDownFiles('DownFiles', arr)
-}
+  _updDownFiles("DownFiles", arr);
+};
 /**
  * 获取下载列表
  */
 export const getDownLists = () => {
-  return getLocalData('DownFiles')
-}
+  return getLocalData("DownFiles");
+};
 
 /**
  * 获取下载完成数据
  */
 export const getDownLoaded = () => {
-  return getLocalData('DownLoaded');
-}
+  return getLocalData("DownLoaded");
+};
 /**
  * 更新下载完成列表
- * @param {*} arr 
+ * @param {*} arr
  */
-const _updDownLoaded = debounce(setLocalData, 1000)
+const _updDownLoaded = debounce(setLocalData, 1000);
 export const updDownLoaded = (arr: any) => {
-  _updDownLoaded('DownLoaded', arr)
-}
+  _updDownLoaded("DownLoaded", arr);
+};
+
+/**
+ * 获取收藏数据
+ */
+export const getCollectData = () => {
+  return getLocalData("collection");
+};
+/**
+ * 设置收藏数据
+ */
+export const setCollectData = (collectArr: any) => {
+  return getLocalData("collection", collectArr);
+};
