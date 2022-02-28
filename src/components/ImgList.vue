@@ -25,11 +25,10 @@
 </template>
     
 <script setup lang='ts'>
-// import empty from '@/assets/collection.svg'
 import { ref, inject } from 'vue'
 import { Data } from '@/types/interface'
 import { Star, StarFilled, Download } from '@element-plus/icons-vue'
-import { setLocalData, getCollectData, setCollectData } from '@/utils/utils'
+import { setLocalData, getCollectData } from '@/utils/utils'
 /**
  * 接收props传参
  */
@@ -40,7 +39,6 @@ const props = defineProps({
     }
 })
 
-console.log("props.list", props.list);
 const emit = defineEmits(['change'])
 
 /**

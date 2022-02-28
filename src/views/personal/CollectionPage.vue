@@ -11,36 +11,50 @@
       </template>
       <template v-else>
         <div class="empty">
-          <img :src="empty" />
+          <img src="../../assets/collection.svg" />
         </div>
       </template>
     </ul>
   </div>
 </template>
     
-<script setup lang='ts'>
-import { reactive, ref, inject } from 'vue'
-import empty from '@/assets/collection.svg'
+<script lang='ts'>
+import { ref, inject, defineComponent } from 'vue'
+// import empty from '@/assets/collection.svg'
 import { Data } from '@/types/interface'
-import { setLocalData, getCollectData, setCollectData } from '@/utils/utils'
+import { getCollectData } from '@/utils/utils'
 
-// 首次加载获取缓存中的收藏列表
-let imgList = ref(getCollectData())
-/**
- * inject接受provide提供的函数, 点击图片后展示图片详情页面
- */
-const imageDetailIsShow = inject('layout')
+export default defineComponent({
+  name: 'CollectionPage',
+  setup(props, { emit }) {
 
-const openDeatil = (data: Data) => {
-  (imageDetailIsShow as any)(data)
-}
-/**
- * 更新收藏列表
- */
-const updateImgList = (newVal: any) => {
-  imgList.value = newVal
-}
+    // 首次加载获取缓存中的收藏列表
+    let imgList = ref(getCollectData())
+    console.log("imgList", imgList.value);
 
+    /**
+     * inject接受provide提供的函数, 点击图片后展示图片详情页面
+     */
+    const imageDetailIsShow = inject('layout')
+
+    const openDeatil = (data: Data) => {
+      (imageDetailIsShow as any)(data)
+    }
+    /**
+     * 更新收藏列表
+     */
+    const updateImgList = (newVal: any) => {
+      console.log("newVAL", newVal);
+      imgList.value = newVal
+    }
+
+    return {
+      imgList,
+      updateImgList,
+      openDeatil
+    }
+  }
+})
 
 
 </script>
