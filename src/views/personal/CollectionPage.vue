@@ -1,15 +1,17 @@
 <template>
   <div class="content">
     <ul>
-      <template v-if="imgList.list.length > 0">
-        <li v-for="item in imgList" :key="item.id">
-          <img :src="item.thumbs.small" loading="lazy" draggable="false" />
+      <template v-if="imgList.length > 0">
+        <!-- <li v-for="item in imgList" :key="item.id">
+          <img :src="item.thumbs.small" loading="lazy" draggable="false" @click="openDeatil(item)"/>
           <span>{{ item.resolution }}</span>
-        </li>
+        </li>-->
+        <!-- 图片展示位 -->
+        <ImgList :list="imgList" @change="updateImgList" />
       </template>
       <template v-else>
         <div class="empty">
-          <img :src="empty" alt="">
+          <img :src="empty" />
         </div>
       </template>
     </ul>
@@ -17,11 +19,28 @@
 </template>
     
 <script setup lang='ts'>
-import { reactive, ref } from 'vue'
+import { reactive, ref, inject } from 'vue'
 import empty from '@/assets/collection.svg'
-let imgList = reactive({
-  list: []
-})
+import { Data } from '@/types/interface'
+import { setLocalData, getCollectData, setCollectData } from '@/utils/utils'
+
+// 首次加载获取缓存中的收藏列表
+let imgList = ref(getCollectData())
+/**
+ * inject接受provide提供的函数, 点击图片后展示图片详情页面
+ */
+const imageDetailIsShow = inject('layout')
+
+const openDeatil = (data: Data) => {
+  (imageDetailIsShow as any)(data)
+}
+/**
+ * 更新收藏列表
+ */
+const updateImgList = (newVal: any) => {
+  imgList.value = newVal
+}
+
 
 
 </script>
@@ -61,9 +80,9 @@ let imgList = reactive({
       }
     }
     // 没有数据的时候加载图片
-    .empty{
-        position: relative;
-        top: -150px;
+    .empty {
+      position: relative;
+      top: -150px;
     }
   }
 }
