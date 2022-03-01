@@ -22,11 +22,9 @@
 
 <script setup lang="ts">
 import { getHotPicture } from '@/api/picture'
-import { reactive, ref, toRefs, watch, inject } from 'vue'
+import { reactive, ref, toRefs, watch } from 'vue'
 import { Meta, Data } from '@/types/interface'
 import { useIntersectionObserver } from '@vueuse/core'
-import { Star, StarFilled, Download } from '@element-plus/icons-vue'
-import { setLocalData, getCollectData, setCollectData } from '@/utils/utils'
 
 /**
  * 骨架屏的结构显示与隐藏

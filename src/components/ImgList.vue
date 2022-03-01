@@ -15,7 +15,7 @@
                 </el-icon>
             </span>
             <span>{{ item.resolution }}</span>
-            <span>
+            <span @click="addDownList(item)">
                 <el-icon class="icon-position">
                     <download />
                 </el-icon>
@@ -28,7 +28,8 @@
 import { ref, inject } from 'vue'
 import { Data } from '@/types/interface'
 import { Star, StarFilled, Download } from '@element-plus/icons-vue'
-import { setLocalData, getCollectData } from '@/utils/utils'
+import { setLocalData, getCollectData, addDownloadList, getDownLoadingLists,getDownLoadedLists  } from '@/utils/utils'
+import { downloadImage } from '@/utils/download'
 /**
  * 接收props传参
  */
@@ -70,15 +71,41 @@ const clickRemoveCollect = (id: string) => {
     setLocalData('collection', collectArr.value)
     emit('change', collectArr.value)
 }
-/**
- * 渲染收藏图形化
- */
+// 渲染收藏图形化
 let isCollected = (id: any) => {
     return (
         collectArr.value.length > 0 &&
         collectArr.value.findIndex((item: Data) => id === item.id) !== -1
     )
 }
+
+/**
+ * 下载功能
+ */
+// 获取下载列表的数据
+let downlistArr = ref(getDownLoadingLists())
+const addDownList = (item: Data) => {
+    // 发送下载的监听事件
+    downloadPic(item)
+}
+/**
+ * 通过electron下载文件
+ */
+const downloadPic = (obj: any) => {
+    let index = downlistArr.value.findIndex((item:any) => item.id === obj.id)
+    if(index === -1) {
+        obj.progress = 0;
+        obj.speedBytes = 0;
+        obj.state = 'wait';
+        obj.done = "downing";
+        downlistArr.value.splice(0, 0, obj)
+        // 把下载的图片加入到本地缓存中
+        addDownloadList(downlistArr.value)
+        // 向主进程发送下载指令。
+        downloadImage(obj)
+    }
+}
+
 </script>
     
 <style lang="less" scoped>

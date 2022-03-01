@@ -31,7 +31,7 @@
 </template>
     
 <script setup lang='ts'>
-import { watch, ref, reactive, inject } from "vue";
+import { watch, ref, inject } from "vue";
 import { aspectRatioToWH, getTime } from "@/utils/utils";
 import { Close, Refresh, StarFilled, Download } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
@@ -66,8 +66,8 @@ let minImg = ref({});
 
 
 // 接受从App.vue传递的来的方法
-let addDownList = inject("addDownList");
-let getNewLoaded = inject("getNewLoaded");
+// let addDownList = inject("addDownList");
+// let getNewLoaded = inject("getNewLoaded");
 
 
 watch(
@@ -124,9 +124,9 @@ const downloadImg = (item = props.data) => {
       a.remove();
     }, 3000);
     ElMessage({ message: "下载成功", type: "success", duration: 2000 });
-    (getNewLoaded as Function)({ id, resolution, size, small, url, downloadtime: getTime() })
+    // (getNewLoaded as Function)({ id, resolution, size, small, url, downloadtime: getTime() })
   } else {
-    (addDownList as Function)({ id, url, size, resolution, small, _img: item });
+    // (addDownList as Function)({ id, url, size, resolution, small, _img: item });
     ElMessage({ message: "已加入下载", type: "success", duration: 2000 });
   }
 };

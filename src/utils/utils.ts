@@ -83,20 +83,20 @@ export const getLocalData = (key: string, val = []) => {
  * @param {*} arr
  */
 const _updDownFiles = debounce(setLocalData, 1000);
-export const updDownFiles = (arr: any) => {
-  _updDownFiles("DownFiles", arr);
+export const addDownloadList = (arr: any) => {
+  _updDownFiles("downLoading", arr);
 };
 /**
  * 获取下载列表
  */
-export const getDownLists = () => {
-  return getLocalData("DownFiles");
+export const getDownLoadingLists = () => {
+  return getLocalData("downLoading");
 };
 
 /**
  * 获取下载完成数据
  */
-export const getDownLoaded = () => {
+export const getDownLoadedLists = () => {
   return getLocalData("DownLoaded");
 };
 /**

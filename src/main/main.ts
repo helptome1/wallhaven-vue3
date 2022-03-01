@@ -11,7 +11,7 @@ function createWindow() {
     width: 1500,
     height: 888,
     // 是否全屏显示，去掉控制中心。
-    frame: false,
+    // frame: false,
     show: false,
     icon:path.resolve(__dirname, './images/logo.png'),
     backgroundColor:'#2e2c29',

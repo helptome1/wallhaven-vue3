@@ -39,8 +39,9 @@ const mainWindowIpcStart = function (win) {
         win.close();
     })
 
-    // 下载
-    ipcMain.on("down-file", function (e, data) {
+    // 下载图片
+    ipcMain.on("download-img", function (data) {
+        console.log("监听文件0");
         let { url } = data
         if (!cacheDownItem[url]) {
             cacheDownItem[url] = { ...data }
@@ -52,8 +53,23 @@ const mainWindowIpcStart = function (win) {
 
     // 下载文件
     const downfile = (url) => {
-        session.defaultSession.downloadURL(url)
+        console.log("监听文件1");
+        win.webContents.downloadURL(url)
+        // session.defaultSession.downloadURL(url)
     }
+
+    // 监听下载的文件
+    // 监听 will-download
+    session.defaultSession.on('will-download', (event, item, webContents) => {
+        console.log("监听文件2");
+        try {
+            console.log("event", event);
+            console.log("item", item);
+            console.log("webContents", webContents);
+        } catch {
+
+        }
+    })
 }
 
 module.exports = {
