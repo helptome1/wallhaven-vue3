@@ -79,13 +79,15 @@ provide("layout", imageDetailIsShow)
     flex-direction: column;
     flex: 1;
     z-index: 9;
-    padding: 20px;
+    padding:0 20px 20px 20px;
     color: #fff;
     .main-header {
       display: flex;
+      padding-top: 20px;
       height: 40px;
       line-height: 40px;
       font-size: 40px;
+      -webkit-app-region: drag;
     }
     .main-body {
       height: calc(100% - 40px);

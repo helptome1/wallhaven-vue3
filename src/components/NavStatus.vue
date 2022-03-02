@@ -37,6 +37,10 @@ const SystemOpration = (type: Oprate) => {
     .min,
     .max {
         margin-right: 25px;
+        -webkit-app-region: no-drag;
+    }
+    .close {
+        -webkit-app-region: no-drag;
     }
     .el-icon:hover {
         color: #fff;
