@@ -36,13 +36,11 @@ const mainWindowIpcStart = function (win) {
     // 关闭程序
     ipcMain.on("close", function () {
         console.log("close");
-        
-        // cacheDownItemClose()
         win.close();
     })
 
-    // 下载
-    ipcMain.on("down-file", function (e, data) {
+    // 下载图片
+    ipcMain.on("download-img", function (e, data) {
         let { url } = data
         if (!cacheDownItem[url]) {
             cacheDownItem[url] = { ...data }
@@ -54,8 +52,27 @@ const mainWindowIpcStart = function (win) {
 
     // 下载文件
     const downfile = (url) => {
-        session.defaultSession.downloadURL(url)
+        console.log("url",url)
+        win.webContents.downloadURL(url)
     }
+
+    // 监听下载的文件
+    // 监听 will-download
+    win.webContents.session.on('will-download', (event, item, webContents) => {
+        try {
+            console.log("event", event);
+            console.log("item", item);
+            console.log("webContents", webContents);
+            // 监听下载进行中时的事件
+            item.on('updated',(event, state)=>{})
+            // 下载完成时的事件
+            item.on('done', (event, state) => {
+
+            })
+        } catch {
+
+        }
+    })
 }
 
 module.exports = {

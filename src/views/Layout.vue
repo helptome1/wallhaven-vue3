@@ -10,8 +10,8 @@
       </div>
       <div class="main-body">
         <transition name="slide-fade" mode="out-in">
-          <keep-alive exclude="AboutPage">
-            <component class="component" :is="tabs.component"></component>
+          <keep-alive exclude="CollectionPage,CollectionPage">
+            <component class="component" :is="tabs.component" :key="tabs.id"></component>
           </keep-alive>
         </transition>
       </div>
@@ -79,13 +79,15 @@ provide("layout", imageDetailIsShow)
     flex-direction: column;
     flex: 1;
     z-index: 9;
-    padding: 20px;
+    padding:0 20px 20px 20px;
     color: #fff;
     .main-header {
       display: flex;
+      padding-top: 20px;
       height: 40px;
       line-height: 40px;
       font-size: 40px;
+      -webkit-app-region: drag;
     }
     .main-body {
       height: calc(100% - 40px);
@@ -105,6 +107,17 @@ provide("layout", imageDetailIsShow)
 }
 .acg {
   background-image: url("../assets/acg.jpg");
+}
+
+.collection {
+  background-image: url("../assets/collection.jpg");
+}
+
+.download {
+  background-image: url("../assets/download.png");
+}
+.about {
+  background-image: url("../assets/about.jpg");
 }
 // 翻页动画
 .slide-fade-leave-active,

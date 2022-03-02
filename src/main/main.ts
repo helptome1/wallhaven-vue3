@@ -11,11 +11,12 @@ function createWindow() {
     width: 1200,
     height: 600,
     // 是否全屏显示，去掉控制中心。
-    // frame: false,
+    frame: false,
     show: false,
     icon:path.resolve(__dirname, './images/logo.png'),
     backgroundColor:'#2e2c29',
     webPreferences: {
+      // 资源跨域解决方法，但是是不安全的方法。
       webSecurity: false,
       nodeIntegration: false,
       contextIsolation: true,
@@ -27,19 +28,12 @@ function createWindow() {
   if(app.isPackaged) {
     console.log("文件已经打包了")
     win.loadFile(winURL)
-
   } else {
     win.loadFile(winURL)
     win.webContents.openDevTools()
   }
 
   win.on('ready-to-show', () => { win.show() })
-  /**
-   * 监听关闭事件
-   */
-  ipcMain.on("close", function () {
-    win.close();
-  })
   return win
 }
 
@@ -47,9 +41,9 @@ function createWindow() {
 // 和创建浏览器窗口的时候调用
 // 部分 API 在 ready 事件触发后才能使用。
 app.whenReady().then(() => {
-  createWindow()
-  // let mainWindow = createWindow()
-  // mainIpcStart(mainWindow)
+  // createWindow()
+  let mainWindow = createWindow()
+  mainIpcStart(mainWindow)
   app.on('activate', function () {
     // 通常在 macOS 上，当点击 dock 中的应用程序图标时，如果没有其他
     // 打开的窗口，那么程序会重新创建一个窗口。
