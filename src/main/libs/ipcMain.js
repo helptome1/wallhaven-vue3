@@ -40,8 +40,7 @@ const mainWindowIpcStart = function (win) {
     })
 
     // 下载图片
-    ipcMain.on("download-img", function (data) {
-        console.log("监听文件0");
+    ipcMain.on("download-img", function (e, data) {
         let { url } = data
         if (!cacheDownItem[url]) {
             cacheDownItem[url] = { ...data }
@@ -53,19 +52,23 @@ const mainWindowIpcStart = function (win) {
 
     // 下载文件
     const downfile = (url) => {
-        console.log("监听文件1");
+        console.log("url",url)
         win.webContents.downloadURL(url)
-        // session.defaultSession.downloadURL(url)
     }
 
     // 监听下载的文件
     // 监听 will-download
-    session.defaultSession.on('will-download', (event, item, webContents) => {
-        console.log("监听文件2");
+    win.webContents.session.on('will-download', (event, item, webContents) => {
         try {
             console.log("event", event);
             console.log("item", item);
             console.log("webContents", webContents);
+            // 监听下载进行中时的事件
+            item.on('updated',(event, state)=>{})
+            // 下载完成时的事件
+            item.on('done', (event, state) => {
+
+            })
         } catch {
 
         }

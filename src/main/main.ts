@@ -8,10 +8,10 @@ let winURL = path.resolve(__dirname, "../../dist/index.html");
 function createWindow() {
   // 创建浏览器窗口
   const win = new BrowserWindow({
-    width: 1500,
-    height: 888,
+    width: 1200,
+    height: 600,
     // 是否全屏显示，去掉控制中心。
-    // frame: false,
+    frame: false,
     show: false,
     icon:path.resolve(__dirname, './images/logo.png'),
     backgroundColor:'#2e2c29',

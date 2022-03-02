@@ -5,7 +5,7 @@
       <ul class="downList">
         <li v-for="(item, index) in downLoadList" :key="index">
           <div class="image">
-            <img :src="item.thumbs.small" />
+            <img :src="item.small" />
           </div>
           <div class="imgInfo">
             <div class="down-info">

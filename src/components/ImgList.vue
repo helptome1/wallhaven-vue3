@@ -85,13 +85,16 @@ let isCollected = (id: any) => {
 // 获取下载列表的数据
 let downlistArr = ref(getDownLoadingLists())
 const addDownList = (item: Data) => {
+    let { id, path: url, file_size: size, resolution, thumbs: { small } } = item
     // 发送下载的监听事件
-    downloadPic(item)
+    downloadPic({ id, url, size, resolution, small })
 }
 /**
  * 通过electron下载文件
  */
 const downloadPic = (obj: any) => {
+    console.log("obj", obj);
+    
     let index = downlistArr.value.findIndex((item:any) => item.id === obj.id)
     if(index === -1) {
         obj.progress = 0;
