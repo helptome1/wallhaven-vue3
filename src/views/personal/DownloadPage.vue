@@ -41,9 +41,13 @@ import { getDownLoadingLists } from '@/utils/utils'
 export default defineComponent({
   name: 'CollectionPage',
   setup() {
+    
+    // 获取下载列表。
     const downLoadList = ref(getDownLoadingLists())
     console.log("downLoadList", downLoadList);
-
+    /**
+     * bytes to Mb
+     */
     const byteChange = computed(() => (limit: number) => {
       var size = "";
       if (limit < 0.1 * 1024) {                            //小于0.1KB，则转化成B

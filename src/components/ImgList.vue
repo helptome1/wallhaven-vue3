@@ -23,12 +23,12 @@
         </div>
     </li>
 </template>
-    
+
 <script setup lang='ts'>
 import { ref, inject } from 'vue'
 import { Data } from '@/types/interface'
 import { Star, StarFilled, Download } from '@element-plus/icons-vue'
-import { setLocalData, getCollectData, addDownloadList, getDownLoadingLists,getDownLoadedLists  } from '@/utils/utils'
+import { setLocalData, getCollectData, addDownloadList, getDownLoadingLists, getDownLoadedLists } from '@/utils/utils'
 import { downloadImage } from '@/utils/download'
 /**
  * 接收props传参
@@ -93,10 +93,8 @@ const addDownList = (item: Data) => {
  * 通过electron下载文件
  */
 const downloadPic = (obj: any) => {
-    console.log("obj", obj);
-    
-    let index = downlistArr.value.findIndex((item:any) => item.id === obj.id)
-    if(index === -1) {
+    let index = downlistArr.value.findIndex((item: any) => item.id === obj.id)
+    if (index === -1) {
         obj.progress = 0;
         obj.speedBytes = 0;
         obj.state = 'wait';

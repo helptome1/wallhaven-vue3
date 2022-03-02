@@ -1,5 +1,6 @@
+const { log } = require('console');
 const { app, ipcMain, session, shell, DownloadItem, dialog } = require('electron');
-// const path = require("path")
+const path = require("path")
 const fs = require('fs');
 
 
@@ -52,22 +53,64 @@ const mainWindowIpcStart = function (win) {
 
     // 下载文件
     const downfile = (url) => {
-        console.log("url",url)
         win.webContents.downloadURL(url)
+        // session.defaultSession.downloadURL(url)
     }
+    // 设置下载路径
+    ipcMain.on('set-path', (event, data = {}) => {
+        if (data.path) {
+            if (data.path !== 'noPath') app.setPath('downloadPath', data.path)
+            // 向渲染进程通信
+            event.reply('set-path-reply', app.getPath('downloads'))
+        }
+    })
 
     // 监听下载的文件
     // 监听 will-download
     win.webContents.session.on('will-download', (event, item, webContents) => {
         try {
-            console.log("event", event);
-            console.log("item", item);
-            console.log("webContents", webContents);
-            // 监听下载进行中时的事件
-            item.on('updated',(event, state)=>{})
-            // 下载完成时的事件
-            item.on('done', (event, state) => {
+            let loadInfo = {}
 
+            // 无需对话框提示， 直接将文件保存到默认路径
+            // app.getPath用来获取系统的基础路径。
+            const filePath = path.join(app.getPath("downloads"), item.getFilename())
+            console.log("path", filePath);
+            item.setSavePath(filePath)
+
+            // 上次监听下载的数据量
+            let prevReceivedBytes = 0
+
+            // 监听下载进行中时的事件
+            item.on('updated', (event, state) => {
+                if (state === 'interrupted') {
+                    console.log('Download is interrupted but can be resumed')
+                } else if (state === 'progressing') {
+                    if (item.isPaused()) {
+                        console.log('Download is paused')
+                    } else {
+                        let receivedBytes = item.getReceivedBytes()
+                        // 下载的总字节数。
+                        loadInfo.receivedBytes = receivedBytes
+                        // 下载的速度
+                        loadInfo.speedBytes = receivedBytes - prevReceivedBytes
+                        // 下载状态
+                        loadInfo.state = 'loading'
+                        // 记录这次监听接收到的数据是多少
+                        prevReceivedBytes = receivedBytes
+                        console.log("loadInfo.speedBytes", loadInfo.speedBytes)
+                        // 通知渲染进程，更新下载状态
+                        //  JSON.parse(JSON.stringify(loadInfo)深拷贝，但是有缺陷。
+                        win.webContents.send('downloadItemState', JSON.parse(JSON.stringify(loadInfo)))
+                    }
+                }
+            })
+            // 下载完成时的事件
+            item.once('done', (event, state) => {
+                if (state === 'completed') {
+                    console.log('Download successfully')
+                } else {
+                    console.log(`Download failed: ${state}`)
+                }
             })
         } catch {
 
