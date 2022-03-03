@@ -13,11 +13,11 @@
                 <span>{{ item.id }}</span>
               </div>
               <div class="down-process">
-                <span>--/{{ byteChange(item.file_size) }}</span>
+                <span>{{ byteChange(item.receivedBytes) }}/{{ byteChange(item.size) }}</span>
               </div>
             </div>
             <div class="down-speed">
-              <span>1MB/s</span>
+              <span>{{ byteChange(item.speedBytes) }}</span>
             </div>
             <div class="down-options">icon</div>
           </div>
@@ -34,17 +34,21 @@
 </template>
     
 <script lang='ts'>
-import { ref, defineComponent, computed } from 'vue'
+import { ref, defineComponent, computed, inject, nextTick } from 'vue'
 import empty from '@/assets/collection.svg'
 import { getDownLoadingLists } from '@/utils/utils'
+import { downloadState } from '@/utils/download'
+// 引入pinia
+import { downloadStore } from '@/stores/download'
+
 
 export default defineComponent({
   name: 'CollectionPage',
   setup() {
-    
+    const downLoadingList = downloadStore();
+
     // 获取下载列表。
     const downLoadList = ref(getDownLoadingLists())
-    console.log("downLoadList", downLoadList);
     /**
      * bytes to Mb
      */
@@ -68,6 +72,19 @@ export default defineComponent({
       }
       return size;
     })
+    /**
+     * 获取下载进度
+     * @param data 获取拿到的下载数据
+     */
+    const downloadInfo = (data?: any) => {
+      // console.log("downLoadingList", downLoadingList.downlistArr);
+      nextTick(() => {
+        const index = downLoadingList.downlistArr.findIndex((item: any) => item.id == data.id)
+        downLoadList.value[index] = data
+        console.log("downLoadList", downLoadList.value[index].receivedBytes);
+      })
+    }
+    downloadState(downloadInfo)
 
     return {
       downLoadList,

@@ -69,7 +69,8 @@ const mainWindowIpcStart = function (win) {
     // 监听 will-download
     win.webContents.session.on('will-download', (event, item, webContents) => {
         try {
-            let loadInfo = {}
+            const url = item.getURL()
+            let loadInfo = cacheDownItem[url] || {}
 
             // 无需对话框提示， 直接将文件保存到默认路径
             // app.getPath用来获取系统的基础路径。
@@ -97,7 +98,7 @@ const mainWindowIpcStart = function (win) {
                         loadInfo.state = 'loading'
                         // 记录这次监听接收到的数据是多少
                         prevReceivedBytes = receivedBytes
-                        console.log("loadInfo.speedBytes", loadInfo.speedBytes)
+                        console.log("loadInfo.speedBytes", loadInfo)
                         // 通知渲染进程，更新下载状态
                         //  JSON.parse(JSON.stringify(loadInfo)深拷贝，但是有缺陷。
                         win.webContents.send('downloadItemState', JSON.parse(JSON.stringify(loadInfo)))

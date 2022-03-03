@@ -103,6 +103,7 @@ const downloadPic = (obj: any) => {
     if (index === -1) {
         obj.progress = 0;
         obj.speedBytes = 0;
+        obj.receivedBytes = 0;
         obj.state = 'wait';
         obj.done = "downing";
         downlistArr.value.splice(0, 0, obj)
