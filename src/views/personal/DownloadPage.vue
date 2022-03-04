@@ -13,7 +13,7 @@
                 <span>{{ item.id }}</span>
               </div>
               <div class="down-process">
-                <span>{{ byteChange(item.receivedBytes) }}/{{ byteChange(item.size) }}</span>
+                <span>{{ item.receivedBytes ? byteChange(item.receivedBytes) : '--' }}/{{ byteChange(item.size) }}</span>
               </div>
             </div>
             <div class="down-speed">
@@ -36,7 +36,7 @@
 <script lang='ts'>
 import { ref, defineComponent, computed, inject, nextTick } from 'vue'
 import empty from '@/assets/collection.svg'
-import { getDownLoadingLists } from '@/utils/utils'
+import { getDownLoadingLists, addDownloadList } from '@/utils/utils'
 import { downloadState } from '@/utils/download'
 // 引入pinia
 import { downloadStore } from '@/stores/download'
@@ -81,10 +81,13 @@ export default defineComponent({
       nextTick(() => {
         const index = downLoadingList.downlistArr.findIndex((item: any) => item.id == data.id)
         downLoadList.value[index] = data
+        if (data.receivedBytes == data.size) {
+          addDownloadList(downLoadList.value)
+        }
         console.log("downLoadList", downLoadList.value[index].receivedBytes);
       })
     }
-    downloadState(downloadInfo)
+    // downloadState(downloadInfo)
 
     return {
       downLoadList,
@@ -97,9 +100,12 @@ export default defineComponent({
     
 <style lang="less" scoped>
 .content {
-  // text-align: center;
   padding: 20px 0;
+  height: 100%;
+  width: 100%;
   ul {
+    height: 100%;
+    overflow-y: scroll;
     li {
       height: 130px;
       background-color: rgba(0, 0, 0, 0.5);
@@ -109,7 +115,7 @@ export default defineComponent({
       align-items: center;
       padding: 0 20px;
       font-size: 16px;
-
+      margin-bottom: 10px;
       .image {
         margin-right: 20px;
         img {
