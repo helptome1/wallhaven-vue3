@@ -34,23 +34,25 @@
 </template>
     
 <script lang='ts'>
-import { ref, defineComponent, computed, inject, nextTick } from 'vue'
 import empty from '@/assets/collection.svg'
-import { getDownLoadingLists, addDownloadList } from '@/utils/utils'
-import { downloadState } from '@/utils/download'
+import { defineComponent, computed } from 'vue'
+import { byteChange } from "@/utils/utils"
 // 引入pinia
 import { downloadStore } from '@/stores/download'
+import { storeToRefs } from 'pinia'
 
 
 export default defineComponent({
   name: 'CollectionPage',
   setup() {
     const downLoadingList = downloadStore();
+    // 让pinia的数据变成响应式
+    const { downlistArr } = storeToRefs(downLoadingList)
 
     // 获取下载列表。
-    const downLoadList = ref(getDownLoadingLists())
+    const downLoadList = downlistArr.value
     /**
-     * bytes to Mb
+     * 转换字节显示的大小
      */
     const byteChange = computed(() => (limit: number) => {
       var size = "";
@@ -72,22 +74,6 @@ export default defineComponent({
       }
       return size;
     })
-    /**
-     * 获取下载进度
-     * @param data 获取拿到的下载数据
-     */
-    const downloadInfo = (data?: any) => {
-      // console.log("downLoadingList", downLoadingList.downlistArr);
-      nextTick(() => {
-        const index = downLoadingList.downlistArr.findIndex((item: any) => item.id == data.id)
-        downLoadList.value[index] = data
-        if (data.receivedBytes == data.size) {
-          addDownloadList(downLoadList.value)
-        }
-        console.log("downLoadList", downLoadList.value[index].receivedBytes);
-      })
-    }
-    // downloadState(downloadInfo)
 
     return {
       downLoadList,

@@ -54,7 +54,6 @@ const mainWindowIpcStart = function (win) {
     // 下载文件
     const downfile = (url) => {
         win.webContents.downloadURL(url)
-        // session.defaultSession.downloadURL(url)
     }
     // 设置下载路径
     ipcMain.on('set-path', (event, data = {}) => {
@@ -98,7 +97,6 @@ const mainWindowIpcStart = function (win) {
                         loadInfo.state = 'loading'
                         // 记录这次监听接收到的数据是多少
                         prevReceivedBytes = receivedBytes
-                        console.log("loadInfo.speedBytes", loadInfo)
                         // 通知渲染进程，更新下载状态
                         //  JSON.parse(JSON.stringify(loadInfo)深拷贝，但是有缺陷。
                         win.webContents.send('downloadItemState', JSON.parse(JSON.stringify(loadInfo)))
@@ -108,6 +106,9 @@ const mainWindowIpcStart = function (win) {
             // 下载完成时的事件
             item.once('done', (event, state) => {
                 if (state === 'completed') {
+                    // 更新下载状态
+                    loadInfo.state = 'done'
+                    win.webContents.send('downloadItemState', JSON.parse(JSON.stringify(loadInfo)))
                     console.log('Download successfully')
                 } else {
                     console.log(`Download failed: ${state}`)

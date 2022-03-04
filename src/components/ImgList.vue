@@ -28,7 +28,7 @@
 import { ref, inject } from 'vue'
 import { Data } from '@/types/interface'
 import { Star, StarFilled, Download } from '@element-plus/icons-vue'
-import { setLocalData, getCollectData, addDownloadList, getDownLoadingLists, getDownLoadedLists } from '@/utils/utils'
+import { setLocalData, getCollectData, addDownloadList, getDownLoadingLists } from '@/utils/utils'
 import { downloadImage } from '@/utils/download'
 // 引入pinia
 import { downloadStore } from '@/stores/download'
@@ -107,7 +107,7 @@ const downloadPic = (obj: any) => {
         obj.state = 'wait';
         obj.done = "downing";
         downlistArr.value.splice(0, 0, obj)
-        // 传入pinia
+        // 传入pinia, 更新downlostArr的值。
         downLoadList.copyDownlist(downlistArr.value)
         // 把下载的图片加入到本地缓存中
         addDownloadList(downlistArr.value)
