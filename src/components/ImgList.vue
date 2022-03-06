@@ -105,7 +105,6 @@ const downloadPic = (obj: any) => {
         obj.speedBytes = 0;
         obj.receivedBytes = 0;
         obj.state = 'wait';
-        obj.done = "downing";
         downlistArr.value.splice(0, 0, obj)
         // 传入pinia, 更新downlostArr的值。
         downLoadList.copyDownlist(downlistArr.value)

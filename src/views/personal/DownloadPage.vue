@@ -36,7 +36,6 @@
 <script lang='ts'>
 import empty from '@/assets/collection.svg'
 import { defineComponent, computed } from 'vue'
-import { byteChange } from "@/utils/utils"
 // 引入pinia
 import { downloadStore } from '@/stores/download'
 import { storeToRefs } from 'pinia'
