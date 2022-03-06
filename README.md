@@ -42,11 +42,11 @@ yarn
 - run
 
 ```bash
-yarn dev
+yarn electron:start
 ```
 
 - build
 
 ```bash
-yarn build
+yarn make
 ```
