@@ -1,10 +1,10 @@
 <p align='center'>
   <img src='./src/assets/logo800600.png' alt='One-Wallhaven - A desktop application of wallhaven' width='600'/>
 </p>
-
+<p></p>
 ## Features
 
-- ⚡️ use [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [TypeScript](https://www.tslang.cn/), [Electron](https://www.electronjs.org/)
+- ⚡️ use [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [TypeScript](https://www.tslang.cn/), [Electron](https://www.electronjs.org/),[Pinia](https://pinia.vuejs.org/)
 
 - 😃 Use ui and icons from [Element-Plus](http://element-plus.gitee.io/)
 
