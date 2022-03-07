@@ -13,11 +13,11 @@
                 <span>{{ item.id }}</span>
               </div>
               <div class="down-process">
-                <span>--/{{ byteChange(item.file_size) }}</span>
+                <span>{{ item.receivedBytes ? byteChange(item.receivedBytes) : '--' }}/{{ byteChange(item.size) }}</span>
               </div>
             </div>
             <div class="down-speed">
-              <span>1MB/s</span>
+              <span>{{ byteChange(item.speedBytes) }}</span>
             </div>
             <div class="down-options">icon</div>
           </div>
@@ -34,16 +34,25 @@
 </template>
     
 <script lang='ts'>
-import { ref, defineComponent, computed } from 'vue'
 import empty from '@/assets/collection.svg'
-import { getDownLoadingLists } from '@/utils/utils'
+import { defineComponent, computed } from 'vue'
+// 引入pinia
+import { downloadStore } from '@/stores/download'
+import { storeToRefs } from 'pinia'
+
 
 export default defineComponent({
   name: 'CollectionPage',
   setup() {
-    const downLoadList = ref(getDownLoadingLists())
-    console.log("downLoadList", downLoadList);
+    const downLoadingList = downloadStore();
+    // 让pinia的数据变成响应式
+    const { downlistArr } = storeToRefs(downLoadingList)
 
+    // 获取下载列表。
+    const downLoadList = downlistArr.value
+    /**
+     * 转换字节显示的大小
+     */
     const byteChange = computed(() => (limit: number) => {
       var size = "";
       if (limit < 0.1 * 1024) {                            //小于0.1KB，则转化成B
@@ -76,9 +85,12 @@ export default defineComponent({
     
 <style lang="less" scoped>
 .content {
-  // text-align: center;
   padding: 20px 0;
+  height: 100%;
+  width: 100%;
   ul {
+    height: 100%;
+    overflow-y: scroll;
     li {
       height: 130px;
       background-color: rgba(0, 0, 0, 0.5);
@@ -88,7 +100,7 @@ export default defineComponent({
       align-items: center;
       padding: 0 20px;
       font-size: 16px;
-
+      margin-bottom: 10px;
       .image {
         margin-right: 20px;
         img {

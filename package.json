@@ -22,6 +22,7 @@
     "axios": "^0.25.0",
     "electron-squirrel-startup": "^1.0.0",
     "element-plus": "^2.0.2",
+    "pinia": "^2.0.0-rc.10",
     "vue": "^3.2.25",
     "vue-router": "4"
   },
@@ -43,30 +44,6 @@
     "vue-tsc": "^0.29.8"
   },
   "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "new_wallhaven"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
+    "forge": "./forge.config.js"
   }
 }

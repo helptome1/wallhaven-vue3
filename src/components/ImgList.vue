@@ -23,13 +23,19 @@
         </div>
     </li>
 </template>
-    
+
 <script setup lang='ts'>
 import { ref, inject } from 'vue'
 import { Data } from '@/types/interface'
 import { Star, StarFilled, Download } from '@element-plus/icons-vue'
-import { setLocalData, getCollectData, addDownloadList, getDownLoadingLists,getDownLoadedLists  } from '@/utils/utils'
+import { setLocalData, getCollectData, addDownloadList, getDownLoadingLists } from '@/utils/utils'
 import { downloadImage } from '@/utils/download'
+// 引入pinia
+import { downloadStore } from '@/stores/download'
+
+const downLoadList = downloadStore();
+
+
 /**
  * 接收props传参
  */
@@ -93,15 +99,15 @@ const addDownList = (item: Data) => {
  * 通过electron下载文件
  */
 const downloadPic = (obj: any) => {
-    console.log("obj", obj);
-    
-    let index = downlistArr.value.findIndex((item:any) => item.id === obj.id)
-    if(index === -1) {
+    let index = downlistArr.value.findIndex((item: any) => item.id === obj.id)
+    if (index === -1) {
         obj.progress = 0;
         obj.speedBytes = 0;
+        obj.receivedBytes = 0;
         obj.state = 'wait';
-        obj.done = "downing";
         downlistArr.value.splice(0, 0, obj)
+        // 传入pinia, 更新downlostArr的值。
+        downLoadList.copyDownlist(downlistArr.value)
         // 把下载的图片加入到本地缓存中
         addDownloadList(downlistArr.value)
         // 向主进程发送下载指令。

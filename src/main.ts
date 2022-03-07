@@ -4,6 +4,7 @@ import "./assets/styles/global.less";
 import "./assets/styles/iconfont.css";
 
 import components from '@/views/index'
+import { createPinia } from 'pinia';
 
 import { createApp } from "vue";
 import App from "./App.vue";
@@ -13,4 +14,4 @@ import router from "@/route/index";
 
 const app = createApp(App);
 
-app.use(components).use(router).mount("#app");
+app.use(createPinia()).use(components).use(router).mount("#app");
