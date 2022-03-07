@@ -31,11 +31,16 @@
 </template>
     
 <script setup lang='ts'>
-import { watch, ref, inject } from "vue";
-import { aspectRatioToWH, getTime } from "@/utils/utils";
+import { watch, ref } from "vue";
+import { aspectRatioToWH, getDownLoadingLists, addDownloadList, getDownLoadedLists, updDownLoaded} from "@/utils/utils";
 import { Close, Refresh, StarFilled, Download } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 import { getImage } from "@/api/picture";
+import { downloadImage } from '@/utils/download'
+// 引入pinia
+import { downloadStore } from '@/stores/download'
+
+const downLoadList = downloadStore();
 /**
  * 监听是否打开该组件
  */
@@ -49,6 +54,13 @@ const props = defineProps({
 // 获取当前显示窗口的大小,不能换行！
 let clientWidth = document.documentElement.clientWidth;
 let clientHeight = document.documentElement.clientHeight
+window.onresize = () => {
+  console.log("onresize");
+  
+  clientWidth = document.documentElement.clientWidth;
+  clientHeight = document.documentElement.clientHeight
+}
+
 // 控制显示组件显示于隐藏
 let isShow = ref(false);
 // 图标loading状态
@@ -66,8 +78,6 @@ let minImg = ref({});
 
 
 // 接受从App.vue传递的来的方法
-// let addDownList = inject("addDownList");
-// let getNewLoaded = inject("getNewLoaded");
 
 
 watch(
@@ -111,7 +121,11 @@ const downloadImg = (item = props.data) => {
   let { id, path: url, file_size: size, resolution, thumbs: { small }, } = item;
   // 这里使用正则表达式判断下载链接是否是blob格式的链接
   if (/^blob:/.test(imgPath.value)) {
-    // (addDownList as Function)({ id, url, size, resolution, small, _img: item });
+    // 1. 先获取下载成功的照片
+    // let getDownLoadedList = getDownLoadedLists()
+    // 获取下载列表的数据
+    let downlistArr = downLoadList.downlistArr
+
     // 这里使用a标签的方式进行图片的下载。
     const a = document.createElement("a");
     a.href = imgPath.value;
@@ -123,11 +137,31 @@ const downloadImg = (item = props.data) => {
       URL.revokeObjectURL(a.href);
       a.remove();
     }, 3000);
+    // 2.下载完成后，保存到本地存储。这个数据暂时没使用到。使用下面的下载列表进行下载界面的数据渲染。
+    // getDownLoadedList.splice(0, 0, {id, url, size, resolution, process: 100, receivedBytes:size, small, speedBytes:0, state:'done'})
+    // 更新下载列表
+    // updDownLoaded(getDownLoadedList)
+
+    downlistArr.splice(0, 0, {id, url, size, resolution, process: 100, receivedBytes:size, small, speedBytes:0, state:'done'})
+    downLoadList.copyDownlist(downlistArr)
+    // 加入到下载列表的缓存中
+    addDownloadList(downlistArr.value)
     ElMessage({ message: "下载成功", type: "success", duration: 2000 });
-    // (getNewLoaded as Function)({ id, resolution, size, small, url, downloadtime: getTime() })
   } else {
-    // (addDownList as Function)({ id, url, size, resolution, small, _img: item });
-    ElMessage({ message: "已加入下载", type: "success", duration: 2000 });
+    // 如果图片未加载完全就开始点击下载
+    // 1. 获取下载列表的数据
+    let downlistArr = downLoadList.downlistArr
+    // 2. 查看当前要下载的图片是否在下载列表中
+    let index = downlistArr.findIndex((item: any) => item.id === id)
+    if (index === -1) {
+      // 3. 将它加入到下载列表中
+      downlistArr.splice(0, 0, {id, url, size, resolution, process: 0, receivedBytes:0, small, speedBytes:0, state:'wait'})
+      // 3.1传入pinia, 更新downlostArr的值。用来渲染下载页面
+      downLoadList.copyDownlist(downlistArr)
+      // 4. 发起下载请求
+      downloadImage({id, url, size, resolution, process: 0, receivedBytes:0, small, speedBytes:0, state:'wait'})
+      ElMessage({ message: "已加入下载", type: "success", duration: 2000 });
+    }
   }
 };
 </script>
