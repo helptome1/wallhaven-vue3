@@ -32,7 +32,7 @@ const downloadInfo = (data?: any) => {
   })
 }
 // 开启下载监听。
-downloadState(downloadInfo)
+// downloadState(downloadInfo)
 
 </script>
 

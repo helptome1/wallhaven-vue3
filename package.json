@@ -1,7 +1,7 @@
 {
   "name": "new-wallhaven",
   "version": "0.0.0",
-  "description": "这是一个wallhaven网站的桌面应用版本",
+  "description": "HelpToMe Wallhaven",
   "author": "hezg",
   "license": "ISC",
   "scripts": {
@@ -14,7 +14,9 @@
     "package": "electron-forge package",
     "preview": "vite preview --port 8080",
     "start": "electron-forge start",
-    "electron:start": "vite build --mode production & electron ."
+    "electron:start": "vite build --mode production & electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "main": "./src/main/main.ts",
   "dependencies": {
@@ -27,6 +29,7 @@
     "vue-router": "4"
   },
   "devDependencies": {
+    "electron-builder": "^22.14.13",
     "@electron-forge/cli": "^6.0.0-beta.63",
     "@electron-forge/maker-deb": "^6.0.0-beta.63",
     "@electron-forge/maker-rpm": "^6.0.0-beta.63",
@@ -44,6 +47,56 @@
     "vue-tsc": "^0.29.8"
   },
   "config": {
-    "forge": "./forge.config.js"
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "version": "1.0.1",
+          "config": {
+            "name": "new_wallhaven"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  },
+  "build": {
+    "appId": "com.helptome.new-wallhaven",
+    "copyright": "©2019 HelpToMe.",
+    "productName": "new-wallhaven",
+    "files": {
+
+    },
+    "directories": {
+      "output": "./out"
+    },
+    "win":{
+      "icon": "./build/icon/logo256.ico"
+    },
+    "nsis":{
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "installerIcon": "./build/icon/logo256.ico",
+      "uninstallerIcon": "./build/icon/logo256.ico",
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "new-wallhaven"
+    }
   }
 }
