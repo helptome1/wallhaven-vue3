@@ -8,8 +8,8 @@ let winURL = path.resolve(__dirname, "../../dist/index.html");
 function createWindow() {
   // 创建浏览器窗口
   const win = new BrowserWindow({
-    width: 1200,
-    height: 600,
+    width: 1500,
+    height: 888,
     // 是否全屏显示，去掉控制中心。
     frame: false,
     show: false,

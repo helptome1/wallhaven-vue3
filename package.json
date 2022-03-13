@@ -1,6 +1,6 @@
 {
   "name": "new-wallhaven",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "HelpToMe Wallhaven",
   "author": "hezg",
   "license": "ISC",
@@ -78,16 +78,14 @@
     "appId": "com.helptome.new-wallhaven",
     "copyright": "©2019 HelpToMe.",
     "productName": "new-wallhaven",
-    "files": {
-
-    },
+    "files": {},
     "directories": {
       "output": "./out"
     },
-    "win":{
+    "win": {
       "icon": "./build/icon/logo256.ico"
     },
-    "nsis":{
+    "nsis": {
       "oneClick": false,
       "perMachine": true,
       "allowElevation": true,
