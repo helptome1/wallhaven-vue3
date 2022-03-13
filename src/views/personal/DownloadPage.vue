@@ -125,8 +125,15 @@ export default defineComponent({
     }
   }
   .empty {
+    width: 100%;
+    height: 100%;
     position: relative;
-    top: -150px;
+    img {
+      position: absolute;
+      left: 50%;
+      top: -150px;
+      transform: translate(-50%);
+    }
   }
 }
 </style>
