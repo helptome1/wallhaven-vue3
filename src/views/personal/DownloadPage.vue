@@ -2,6 +2,10 @@
   <div class="content">
     <!-- 有数据时渲染页面 -->
     <template v-if="downLoadList.length > 0">
+        <!-- 下载地址 -->
+      <div class="downPath">
+        <span>下载地址：{{!!loadPath ? loadPath : 'C:/Users/Pc/Downloads'}}</span>
+      </div>
       <ul class="downList">
         <li v-for="(item, index) in downLoadList" :key="index">
           <div class="image">
@@ -35,7 +39,7 @@
     
 <script lang='ts'>
 import empty from '@/assets/collection.svg'
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 // 引入pinia
 import { downloadStore } from '@/stores/download'
 import { storeToRefs } from 'pinia'
@@ -47,28 +51,38 @@ export default defineComponent({
     const downLoadingList = downloadStore();
     // 让pinia的数据变成响应式
     const { downlistArr } = storeToRefs(downLoadingList)
-
+    let loadPath = ref('')
     // 获取下载列表。
     const downLoadList = downlistArr.value
+    if(downLoadList.length > 0) {
+      console.log("downLoadList",downLoadList)
+
+      const tempPath = downLoadList[0].loadPath.split('\\')
+      console.log("tempPath",tempPath)
+
+      const tempLoadPath = tempPath.slice(0, tempPath.length - 1);
+      loadPath.value = tempLoadPath.join('/')
+    }
+    // console.log()
     /**
      * 转换字节显示的大小
      */
     const byteChange = computed(() => (limit: number) => {
       var size = "";
-      if (limit < 0.1 * 1024) {                            //小于0.1KB，则转化成B
+      if (limit < 0.1 * 1024) {                          //小于0.1KB，则转化成B
         size = limit.toFixed(2) + "B"
       } else if (limit < 0.1 * 1024 * 1024) {            //小于0.1MB，则转化成KB
         size = (limit / 1024).toFixed(2) + "KB"
-      } else if (limit < 0.1 * 1024 * 1024 * 1024) {        //小于0.1GB，则转化成MB
+      } else if (limit < 0.1 * 1024 * 1024 * 1024) {     //小于0.1GB，则转化成MB
         size = (limit / (1024 * 1024)).toFixed(2) + "MB"
-      } else {                                            //其他转化成GB
+      } else {                                           //其他转化成GB
         size = (limit / (1024 * 1024 * 1024)).toFixed(2) + "GB"
       }
 
-      var sizeStr = size + "";                        //转成字符串
+      var sizeStr = size + "";                           //转成字符串
       var index = sizeStr.indexOf(".");                    //获取小数点处的索引
-      var dou = sizeStr.substr(index + 1, 2)            //获取小数点后两位的值
-      if (dou == "00") {                                //判断后两位是否为00，如果是则删除00                
+      var dou = sizeStr.substr(index + 1, 2)             //获取小数点后两位的值
+      if (dou == "00") {                                 //判断后两位是否为00，如果是则删除00                
         return sizeStr.substring(0, index) + sizeStr.substr(index + 3, 2)
       }
       return size;
@@ -77,7 +91,8 @@ export default defineComponent({
     return {
       downLoadList,
       byteChange,
-      empty
+      empty,
+      loadPath
     }
   }
 })

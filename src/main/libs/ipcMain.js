@@ -95,6 +95,8 @@ const mainWindowIpcStart = function (win) {
                         loadInfo.speedBytes = receivedBytes - prevReceivedBytes
                         // 下载状态
                         loadInfo.state = 'loading'
+                        // 下载地址
+                        loadInfo.loadPath = filePath
                         // 记录这次监听接收到的数据是多少
                         prevReceivedBytes = receivedBytes
                         // 通知渲染进程，更新下载状态
