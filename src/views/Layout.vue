@@ -10,7 +10,7 @@
       </div>
       <div class="main-body">
         <transition name="slide-fade" mode="out-in">
-          <keep-alive exclude="CollectionPage,CollectionPage">
+          <keep-alive exclude="CollectionPage,DownloadPage">
             <component class="component" :is="tabs.component" :key="tabs.id"></component>
           </keep-alive>
         </transition>

@@ -2,7 +2,7 @@
   <div class="content">
     <!-- 有数据时渲染页面 -->
     <template v-if="downLoadList.length > 0">
-        <!-- 下载地址 -->
+      <!-- 下载地址 -->
       <div class="downPath">
         <span>下载地址：{{!!loadPath ? loadPath : 'C:/Users/Pc/Downloads'}}</span>
       </div>
@@ -54,14 +54,15 @@ export default defineComponent({
     let loadPath = ref('')
     // 获取下载列表。
     const downLoadList = downlistArr.value
-    if(downLoadList.length > 0) {
-      console.log("downLoadList",downLoadList)
-
-      const tempPath = downLoadList[0].loadPath.split('\\')
-      console.log("tempPath",tempPath)
-
-      const tempLoadPath = tempPath.slice(0, tempPath.length - 1);
-      loadPath.value = tempLoadPath.join('/')
+    if (!!downLoadList && downLoadList.length > 0) {
+      // 如果数据中没有loadpath,清空缓存
+      if (!downLoadList[0].loadPath) {
+        localStorage.removeItem("downLoading");
+      } else {
+        const tempPath = downLoadList[0].loadPath.split("\\");
+        const tempLoadPath = tempPath.slice(0, tempPath.length - 1);
+        loadPath.value = tempLoadPath.join("/");
+      }
     }
     // console.log()
     /**
