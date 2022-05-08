@@ -13,6 +13,7 @@ function pathResolve(dir: string) {
 }
 
 export default ({ mode }) => {
+  // 用来获取当前环境变量
   const envConfig = loadEnv(mode, process.cwd());
   console.log("envConfig", envConfig);
 
