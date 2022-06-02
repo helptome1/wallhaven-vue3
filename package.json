@@ -1,6 +1,6 @@
 {
   "name": "new-wallhaven",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "HelpToMe Wallhaven",
   "author": "hezg",
   "license": "ISC",
@@ -10,8 +10,8 @@
     "build": "vite build",
     "build:env": "vite build --mode development",
     "build:prod": "vite build --mode production",
-    "make": "electron-forge make",
-    "package": "electron-forge package",
+    "make": "vite build & electron-forge make",
+    "package": "vite build & electron-forge package",
     "preview": "vite preview --port 8080",
     "start": "electron-forge start",
     "electron:start": "vite build --mode production & electron .",
@@ -29,14 +29,15 @@
     "vue-router": "4"
   },
   "devDependencies": {
-    "electron-builder": "^22.14.13",
     "@electron-forge/cli": "^6.0.0-beta.63",
     "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.63",
     "@electron-forge/maker-rpm": "^6.0.0-beta.63",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "@vitejs/plugin-vue": "^2.0.0",
     "electron": "^16.0.7",
+    "electron-builder": "^23.0.3",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "style-resources-loader": "^1.4.1",
@@ -48,20 +49,31 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "appVersion": "1.0.1",
+        "name": "New Wallhaven",
+        "icon": "./build/icon/logo256"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
-          "version": "1.0.1",
           "config": {
             "name": "new_wallhaven"
-          }
+          },
+          "version": "1.0.1"
         },
         {
           "name": "@electron-forge/maker-zip",
           "platforms": [
             "darwin"
           ]
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "name": "new_wallhaven",
+            "format": "ULFO"
+          }
         },
         {
           "name": "@electron-forge/maker-deb",
@@ -84,6 +96,14 @@
     },
     "win": {
       "icon": "./build/icon/logo256.ico"
+    },
+    "mac": {
+      "icon": "./build/icon/logo256.icns"
+    },
+    "dmg": {
+      "icon": "./build/icon/logo256.icns",
+      "title": "New Wallhaven",
+      "sign": true
     },
     "nsis": {
       "oneClick": false,

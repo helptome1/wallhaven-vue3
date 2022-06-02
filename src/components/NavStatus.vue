@@ -31,7 +31,7 @@ const SystemOpration = (type: Oprate) => {
     position: absolute;
     right: 0;
     margin-right: 20px;
-    top: -4px;
+    top: 5px;
     color: gray;
     font-size: 18px;
     .min,
