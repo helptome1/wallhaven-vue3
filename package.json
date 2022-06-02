@@ -89,21 +89,31 @@
   "build": {
     "appId": "com.helptome.new-wallhaven",
     "copyright": "©2019 HelpToMe.",
-    "productName": "new-wallhaven",
+    "productName": "New Wallhaven",
     "files": {},
     "directories": {
       "output": "./out"
     },
     "win": {
-      "icon": "./build/icon/logo256.ico"
+      "icon": "./build/icon/logo256.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
     },
     "mac": {
-      "icon": "./build/icon/logo256.icns"
-    },
-    "dmg": {
       "icon": "./build/icon/logo256.icns",
-      "title": "New Wallhaven",
-      "sign": true
+      "target": {
+        "target": "dmg",
+        "arch": [
+          "x64",
+          "arm64"
+        ]
+      }
     },
     "nsis": {
       "oneClick": false,
