@@ -109,7 +109,7 @@ const downloadPic = (obj: any) => {
         // 传入pinia, 更新downlostArr的值。
         downLoadList.copyDownlist(downlistArr.value)
         // 把下载的图片加入到本地缓存中
-        addDownloadList(downlistArr.value)
+        // addDownloadList(downlistArr.value)
         // 向主进程发送下载指令。
         downloadImage(obj)
     }
