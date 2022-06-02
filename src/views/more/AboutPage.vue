@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="aboutPage">
     <div class="about">
       <p class="about-me">
         Hello，我是公众号HelpToMe的主笔，也是本应用的开发者——小熊猫。 wallhaven.cc
@@ -9,18 +9,22 @@
     </div>
     <div class="follow">
       <div class="update">
-        <h1>更新说明V1.0.0：</h1>
-        <p>1.0版本仅仅支持了最基本的一些功能，包括图片下载，收藏，以及预览等功能。后续最新版本的软件暂时发布在我的个人微信公众号：HelpTomMe，扫描下方二维码关注。</p>
+        <div v-for="(item, index) in updateInfoList" :key="index" class="update-info">
+          <h1>{{ item.title + item.version }}:</h1>
+          <p>{{ item.content }}</p>
+        </div>
       </div>
-      <ul>
-        <li>
-          <img :src="donateImg" />
-          <span>创作不易，如果觉得软件可以，给个支持。</span>
-        </li>
-        <li>
-          <img :src="wechatImg" />
-        </li>
-      </ul>
+      <div class="personPicture">
+        <ul>
+          <li>
+            <img :src="donateImg" />
+            <span>创作不易，如果觉得软件可以，给个支持。</span>
+          </li>
+          <li>
+            <img :src="wechatImg" />
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -29,34 +33,72 @@
 import donateImg from '@/assets/donate.png'
 import wechatImg from '@/assets/wechat.jpg'
 
+const updateInfoList = [
+  {
+    title: '更新版本',
+    version: '1.0.1',
+    content: '1.0.1版本，加入了打开控制台的快捷键ctrl/command + K + J，用来清除用户缓存，保证应用的正常运行。'
+  },
+  {
+    title: '更新说明',
+    version: '1.0.0',
+    content: '1.0版本仅仅支持了最基本的一些功能，包括图片下载，收藏，以及预览等功能。后续最新版本的软件暂时发布在我的个人微信公众号：HelpTomMe，扫描下方二维码关注。'
+  }
+]
+
 </script>
 
 <style lang="less" scoped>
+.aboutPage {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
 .about {
   line-height: 50px;
   text-indent: 2rem;
   padding: 20px;
   color: #ececec;
-  border-bottom: 1px solid #eee;
+
   .about-me {
     font-size: 16px;
+    border-bottom: 1px solid #eee;
   }
+
   .follow {
     margin-top: 20px;
     font-size: 16px;
+
     p {
       margin-top: 10px;
       text-indent: 2rem;
     }
+
     .update {
       margin-bottom: 30px;
+
+      .update-info {
+        margin-bottom: 20px;
+
+        h1 {
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+
+        p {
+          margin-bottom: 10px;
+        }
+      }
     }
+
     ul {
       display: flex;
       justify-content: space-around;
+
       li {
         display: flex;
         flex-direction: column;
+
         img {
           width: 300px;
         }
