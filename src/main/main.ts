@@ -1,7 +1,7 @@
 // main.js
 
 // 控制应用生命周期和创建原生浏览器窗口的模组
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron')
 const path = require('path')
 const { mainWindowIpcStart: mainIpcStart } = require("./libs/ipcMain")
 let winURL = path.resolve(__dirname, "../../dist/index.html");
@@ -28,6 +28,7 @@ function createWindow() {
   if(app.isPackaged) {
     console.log("文件已经打包了")
     win.loadFile(winURL)
+    registryShortcut()
   } else {
     win.loadFile(winURL)
     win.webContents.openDevTools()
@@ -35,6 +36,13 @@ function createWindow() {
 
   win.on('ready-to-show', () => { win.show() })
   return win
+}
+// 快捷键注册
+function registryShortcut() {
+  globalShortcut.register('CommandOrControl+J+K', () => {
+    // 获取当前窗口
+    BrowserWindow.getFocusedWindow().webContents.openDevTools();
+  });
 }
 
 // 这段程序将会在 Electron 结束初始化

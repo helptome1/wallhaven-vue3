@@ -48,7 +48,10 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "name": "New Wallhaven",
+        "icon": "./build/icon/logo256"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
