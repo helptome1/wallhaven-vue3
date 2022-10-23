@@ -96,7 +96,7 @@ export const setLocalData = (key: string, val: any) => {
  */
 export const getLocalData = (key: string, val = []) => {
   let data = localStorage.getItem(key);
-  if (data) {
+  if (!!data) {
     return JSON.parse(data);
   }
   return val;

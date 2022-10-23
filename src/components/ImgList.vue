@@ -72,7 +72,7 @@ const clickAddCollect = (item: Data) => {
 
 // 点击取消收藏
 const clickRemoveCollect = (id: string) => {
-    let index = collectArr.value.findIndex(item => item.id === id)
+    let index = collectArr.value.findIndex((item:any) => item.id === id)
     collectArr.value.splice(index, 1)
     setLocalData('collection', collectArr.value)
     emit('change', collectArr.value)
@@ -89,7 +89,8 @@ let isCollected = (id: any) => {
  * 下载功能
  */
 // 获取下载列表的数据
-let downlistArr = ref(getDownLoadingLists())
+const downList = getDownLoadingLists()
+let downlistArr = ref(downList)
 const addDownList = (item: Data) => {
     let { id, path: url, file_size: size, resolution, thumbs: { small } } = item
     // 发送下载的监听事件

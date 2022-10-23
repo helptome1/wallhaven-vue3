@@ -4,9 +4,9 @@ import { getDownLoadingLists,getDownLoadedLists } from '@/utils/utils'
 export const downloadStore = defineStore('downloadProcess', {
     state: () => {
         return { 
-            downlistArr: getDownLoadingLists(),
+            downlistArr: [] as any[], // 下载列表
             donelist: getDownLoadedLists()
-        }  
+        }
     },
     actions: {
         copyDownlist(newVal: any) {

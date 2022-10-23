@@ -4,7 +4,7 @@
 <script setup lang="ts">
 import { nextTick } from 'vue';
 import { downloadState } from '@/utils/download'
-import { addDownloadList, getDownLoadedLists, updDownLoaded } from '@/utils/utils'
+import { addDownloadList, getDownLoadedLists, getDownLoadingLists, updDownLoaded } from '@/utils/utils'
 // 引入pinia
 import { storeToRefs } from 'pinia'
 import { downloadStore } from '@/stores/download'
@@ -31,6 +31,8 @@ const downloadInfo = (data?: any) => {
     }
   })
 }
+// 先获取一下缓存中的下载列表数据
+downlistArr.value = getDownLoadingLists()
 // 开启下载监听。
 downloadState(downloadInfo)
 

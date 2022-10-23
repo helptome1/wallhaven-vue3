@@ -137,15 +137,11 @@ const downloadImg = (item = props.data) => {
       URL.revokeObjectURL(a.href);
       a.remove();
     }, 3000);
-    // 2.下载完成后，保存到本地存储。这个数据暂时没使用到。使用下面的下载列表进行下载界面的数据渲染。
-    // getDownLoadedList.splice(0, 0, {id, url, size, resolution, process: 100, receivedBytes:size, small, speedBytes:0, state:'done'})
-    // 更新下载列表
-    // updDownLoaded(getDownLoadedList)
 
     downlistArr.splice(0, 0, {id, url, size, resolution, process: 100, receivedBytes:size, small, speedBytes:0, state:'done'})
     downLoadList.copyDownlist(downlistArr)
     // 加入到下载列表的缓存中
-    addDownloadList(downlistArr.value)
+    addDownloadList(downlistArr)
     ElMessage({ message: "下载成功", type: "success", duration: 2000 });
   } else {
     // 如果图片未加载完全就开始点击下载

@@ -6,3 +6,8 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+// 解决window.icp报错问题
+declare interface Window {
+  icp: any
+}
