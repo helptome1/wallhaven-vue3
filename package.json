@@ -16,7 +16,8 @@
     "start": "electron-forge start",
     "electron:start": "vite build --mode production & electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win"
   },
   "main": "./src/main/main.ts",
   "dependencies": {
@@ -94,6 +95,17 @@
     "directories": {
       "output": "./out"
     },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "installerIcon": "./build/icon/logo256.ico",
+      "uninstallerIcon": "./build/icon/logo256.ico",
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "new-wallhaven"
+    },
     "win": {
       "icon": "./build/icon/logo256.ico",
       "target": [
@@ -114,17 +126,6 @@
           "arm64"
         ]
       }
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": true,
-      "allowElevation": true,
-      "installerIcon": "./build/icon/logo256.ico",
-      "uninstallerIcon": "./build/icon/logo256.ico",
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "new-wallhaven"
     }
   }
 }

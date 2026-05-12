@@ -12,6 +12,6 @@ module.exports = {
                 iconUrl: './build/icon/logo.ico',
                 setupIcon: './build/icon/logo.ico',
             }
-        }
+        },
     ]
 }
